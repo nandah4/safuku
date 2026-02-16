@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/route_manager.dart';
 import 'package:safuku/ui/core/themes/app_colors.dart';
 import 'package:safuku/ui/core/themes/app_dimens.dart';
 import 'package:safuku/ui/core/themes/extensions/theme_extension.dart';
@@ -89,7 +89,7 @@ class ModalDeleteItem extends StatelessWidget {
             text: "Cancel",
             backgroundColor: Colors.transparent,
             onPressed: () {
-              context.pop();
+              Get.back();
             },
             textColor: context.colorExtension.textPrimary,
             isBorder: false,

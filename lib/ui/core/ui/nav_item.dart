@@ -1,19 +1,20 @@
 import 'package:safuku/ui/core/themes/app_dimens.dart';
 import 'package:safuku/ui/core/themes/extensions/theme_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class NavItem extends StatelessWidget {
-  final StatefulNavigationShell navigationShell;
-  final int index;
+  final VoidCallback? onTap;
+  final int currentIndex;
+  final int navIndex;
   final String label;
   final IconData iconInactive;
   final IconData? iconActive;
 
   const NavItem({
     super.key,
-    required this.navigationShell,
-    required this.index,
+    this.onTap,
+    required this.currentIndex,
+    required this.navIndex,
     required this.label,
     required this.iconInactive,
     this.iconActive,
@@ -21,18 +22,13 @@ class NavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isActive = navigationShell.currentIndex == index;
+    final bool isActive = currentIndex == navIndex;
 
     return InkWell(
       borderRadius: BorderRadius.circular(BorderRadiusScale.sm),
       splashColor: context.colorExtension.bgCard,
       highlightColor: context.colorExtension.bgCard,
-      onTap: () {
-        navigationShell.goBranch(
-          index,
-          initialLocation: index == navigationShell.currentIndex,
-        );
-      },
+      onTap: onTap,
       child: Padding(
         padding: .symmetric(
           vertical: PaddingScale.xs,

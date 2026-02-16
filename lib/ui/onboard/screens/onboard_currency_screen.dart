@@ -1,8 +1,11 @@
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/state_manager.dart';
+import 'package:safuku/domain/repositories/personalization_repository.dart';
 import 'package:safuku/ui/core/themes/app_colors.dart';
 import 'package:safuku/ui/core/themes/app_dimens.dart';
 import 'package:safuku/ui/core/themes/extensions/theme_extension.dart';
 import 'package:safuku/ui/core/ui/button_primary.dart';
-import 'package:safuku/ui/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:currency_picker/currency_picker.dart';
 
@@ -27,6 +30,8 @@ class _OnboardCurrencyScreenState extends State<OnboardCurrencyScreen> {
     spaceBetweenAmountAndSymbol: true,
     symbolOnLeft: true,
   );
+
+  final PersonalizationRepository _personalizationRepository = Get.find();
 
   @override
   void initState() {
@@ -54,13 +59,19 @@ class _OnboardCurrencyScreenState extends State<OnboardCurrencyScreen> {
                     ),
                     const SizedBox(height: SpacingScale.sm),
                     Text(
-                      'Choose your language',
+                      context.localizations.chooseCurrency,
                       style: context.textTheme.bodyMedium,
                     ),
                     const SizedBox(height: SpacingScale.xs),
-                    Text(
-                      'This will be used for all your expenses.',
-                      style: context.textTheme.bodySmall,
+                    SizedBox(
+                      width: context.screenSize.width * .85,
+                      child: Text(
+                        textAlign: .center,
+                        context.localizations.changeCurrencyAnytime,
+                        style: context.textTheme.bodySmall?.copyWith(
+                          height: 1.2,
+                        ),
+                      ),
                     ),
                     const SizedBox(height: SpacingScale.lg * 2),
                     SizedBox(
@@ -140,7 +151,9 @@ class _OnboardCurrencyScreenState extends State<OnboardCurrencyScreen> {
                                         Icons.search,
                                         color: AppColors.primary,
                                       ),
-                                      hintText: 'Search currency',
+                                      hintText: context
+                                          .localizations
+                                          .hintTextSearchCurrency,
                                       hintStyle: context.textTheme.labelLarge,
                                     ),
                                   ),
@@ -151,7 +164,7 @@ class _OnboardCurrencyScreenState extends State<OnboardCurrencyScreen> {
                                   },
                                 );
                               },
-                              text: 'Select Currency',
+                              text: context.localizations.selectCurrencyButton,
                             ),
                           ),
                         ],
@@ -162,13 +175,22 @@ class _OnboardCurrencyScreenState extends State<OnboardCurrencyScreen> {
               ),
               ButtonPrimary(
                 isDisabled: _selectedCurrency == null,
-                text: "Continue",
+                text: context.localizations.continueButton,
                 onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
-                    (route) => false,
-                  );
+                  if (_selectedCurrency != null) {
+                    _personalizationRepository.setString(
+                      key: 'currency',
+                      value: _selectedCurrency!.symbol,
+                    );
+
+                    // print(_selectedCurrency!.name);
+                    // print(_selectedCurrency!.code);
+                    // print(_selectedCurrency!.symbol);
+                    // print(_selectedCurrency!.flag);
+                    // print(_selectedCurrency!.namePlural);
+
+                    Get.offAllNamed('/');
+                  }
                 },
               ),
             ],

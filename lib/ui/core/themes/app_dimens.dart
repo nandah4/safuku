@@ -54,5 +54,5 @@ class ImageSizeScale {
 class WalletCardSizeScale {
   const WalletCardSizeScale._();
 
-  static const double widthAndHeight = 55;
+  static const double widthAndHeight = 50;
 }

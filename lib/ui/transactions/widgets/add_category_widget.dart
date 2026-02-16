@@ -1,42 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/route_manager.dart';
 import 'package:safuku/ui/core/themes/app_colors.dart';
 import 'package:safuku/ui/core/themes/app_dimens.dart';
 import 'package:safuku/ui/core/themes/extensions/theme_extension.dart';
 import 'package:safuku/ui/core/ui/button_primary.dart';
-import 'package:safuku/ui/transactions/screens/add_transaction_screen.dart';
+import '../controllers/category_controller.dart';
 
-class AddCategoryWidget extends StatefulWidget {
-  final String? categoryId;
-  final Function(String) onCategorySelected;
-  const AddCategoryWidget({
+typedef OnCategorySelected = void Function(String);
+
+class AddCategoryWidget extends StatelessWidget {
+  final String selectedCategoryId;
+  final OnCategorySelected onCategorySelected;
+  AddCategoryWidget({
     super.key,
-    required this.categoryId,
+    required this.selectedCategoryId,
     required this.onCategorySelected,
   });
 
-  @override
-  State<AddCategoryWidget> createState() => _AddCategoryWidgetState();
-}
-
-class _AddCategoryWidgetState extends State<AddCategoryWidget> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late TextEditingController categoryNameController;
-  late String? _selectedCategoryId;
-
-  @override
-  void initState() {
-    super.initState();
-    categoryNameController = TextEditingController();
-    _selectedCategoryId = widget.categoryId;
-  }
-
-  @override
-  void dispose() {
-    categoryNameController.dispose();
-    super.dispose();
-  }
+  final CategoryController _categoryController = Get.find<CategoryController>();
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +44,7 @@ class _AddCategoryWidgetState extends State<AddCategoryWidget> {
             child: Row(
               children: [
                 IconButton(
-                  onPressed: () => context.pop(),
+                  onPressed: () => Get.back(),
                   icon: Icon(
                     FontAwesomeIcons.chevronLeft,
                     size: IconSizeScale.sm,
@@ -82,15 +66,16 @@ class _AddCategoryWidgetState extends State<AddCategoryWidget> {
                 vertical: PaddingScale.md,
               ),
               child: Form(
-                key: _formKey,
+                key: _categoryController.formKey,
                 child: Column(
                   crossAxisAlignment: .start,
                   children: [
                     TextFormField(
-                      controller: categoryNameController,
+                      controller: _categoryController.categoryNameController,
                       style: context.textTheme.labelLarge?.copyWith(
                         color: context.colorExtension.textPrimary,
                       ),
+                      maxLength: 30,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: context.colorExtension.bgCard,
@@ -100,42 +85,33 @@ class _AddCategoryWidgetState extends State<AddCategoryWidget> {
                             fontWeight: FontWeight.w400,
                           ),
                         ),
+
+                        counterStyle: context.textTheme.labelMedium,
                         prefixIcon: Icon(
                           FontAwesomeIcons.tag,
                           size: IconSizeScale.md,
                           color: context.colorScheme.primary,
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(
-                            BorderRadiusScale.sm,
-                          ),
-                          borderSide: BorderSide(
-                            color:
-                                context.colorExtension.outlinedBorder ??
-                                AppColors.outlinedBorderLight,
-                          ),
+                        enabledBorder: _buildOutlineInputBorder(
+                          context,
+                          false,
+                          context.colorExtension.outlinedBorder ??
+                              AppColors.outlinedBorderLight,
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(
-                            BorderRadiusScale.sm,
-                          ),
-                          borderSide: BorderSide(
-                            color:
-                                context.colorExtension.outlinedBorder ??
-                                AppColors.outlinedBorderLight,
-                          ),
+                        focusedBorder: _buildOutlineInputBorder(
+                          context,
+                          false,
+                          context.colorScheme.primary,
                         ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(
-                            BorderRadiusScale.sm,
-                          ),
-                          borderSide: BorderSide(color: AppColors.error),
+                        errorBorder: _buildOutlineInputBorder(
+                          context,
+                          true,
+                          AppColors.error,
                         ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(
-                            BorderRadiusScale.sm,
-                          ),
-                          borderSide: BorderSide(color: AppColors.error),
+                        focusedErrorBorder: _buildOutlineInputBorder(
+                          context,
+                          true,
+                          AppColors.error,
                         ),
                         errorStyle: context.textTheme.labelMedium?.copyWith(
                           color: AppColors.error,
@@ -146,14 +122,23 @@ class _AddCategoryWidgetState extends State<AddCategoryWidget> {
                         if (value == null || value.isEmpty) {
                           return "Category name is required.";
                         }
+                        if (!RegExp(r'^[a-zA-Z0-9 ]+$').hasMatch(value)) {
+                          return "Category name must not contain special characters.";
+                        }
                         return null;
                       },
                     ),
-                    const SizedBox(height: SpacingScale.xl),
+                    const SizedBox(height: SpacingScale.lg),
                     ButtonPrimary(
                       text: "Create Category",
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {}
+                        if (_categoryController.formKey.currentState!
+                            .validate()) {
+                          _categoryController.createCategory(
+                            _categoryController.categoryNameController.text
+                                .trim(),
+                          );
+                        }
                       },
                     ),
                     const SizedBox(height: SpacingScale.xl),
@@ -161,114 +146,79 @@ class _AddCategoryWidgetState extends State<AddCategoryWidget> {
                     // All Categories
                     Text("All Categories", style: context.textTheme.titleSmall),
                     const SizedBox(height: SpacingScale.sm),
-                    Wrap(
-                      spacing: SpacingScale.sm,
-                      runSpacing: SpacingScale.sm,
-                      children: [
-                        ...categoryList.map((category) {
-                          return GestureDetector(
-                            onTap: () => {
-                              widget.onCategorySelected(category["id"]),
-                              setState(
-                                () => _selectedCategoryId = category["id"],
-                              ),
-                              context.pop(),
-                            },
+                    Obx(
+                      () => Wrap(
+                        spacing: SpacingScale.sm,
+                        runSpacing: SpacingScale.sm,
+                        children: [
+                          ..._categoryController.categories.map((category) {
+                            return GestureDetector(
+                              onTap: () => {
+                                onCategorySelected(category.id.toString()),
+                                Get.back(),
+                              },
 
-                            child: SizedBox(
-                              child: Container(
-                                padding: .symmetric(
-                                  horizontal: PaddingScale.lg,
-                                  vertical: PaddingScale.lg,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: context.colorExtension.bgCard,
-                                  borderRadius: BorderRadius.circular(
-                                    BorderRadiusScale.sm,
+                              child: SizedBox(
+                                child: Container(
+                                  padding: .symmetric(
+                                    horizontal: PaddingScale.lg,
+                                    vertical: PaddingScale.lg,
                                   ),
-                                  border: Border.all(
-                                    width: _selectedCategoryId == category["id"]
-                                        ? 2
-                                        : 1,
-                                    color: _selectedCategoryId == category["id"]
-                                        ? AppColors.primary
-                                        : context
-                                                  .colorExtension
-                                                  .outlinedBorder ??
-                                              AppColors.outlinedBorderLight,
+                                  decoration: BoxDecoration(
+                                    color: context.colorExtension.bgCard,
+                                    borderRadius: BorderRadius.circular(
+                                      BorderRadiusScale.sm,
+                                    ),
+                                    border: Border.all(
+                                      width:
+                                          selectedCategoryId ==
+                                              category.id.toString()
+                                          ? 2
+                                          : 1,
+                                      color:
+                                          selectedCategoryId ==
+                                              category.id.toString()
+                                          ? AppColors.primary
+                                          : context
+                                                    .colorExtension
+                                                    .outlinedBorder ??
+                                                AppColors.outlinedBorderLight,
+                                    ),
                                   ),
-                                ),
-                                child: Text(
-                                  category["name"],
-                                  style: context.textTheme.labelMedium,
+                                  child: Text(
+                                    category.name,
+                                    style: context.textTheme.labelMedium,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        }),
-                      ],
+                            );
+                          }),
+                        ],
+                      ),
                     ),
-                    // SizedBox(
-                    //   height: 50,
-                    //   child: ListView.separated(
-                    //     padding: .symmetric(horizontal: PaddingScale.lg),
-                    //     scrollDirection: .horizontal,
-
-                    //     itemBuilder: (context, index) {
-                    //       return GestureDetector(
-                    //         onTap: () => {
-                    //           widget.onCategorySelected(
-                    //             categoryList[index]["id"],
-                    //           ),
-                    //           setState(
-                    //             () => _selectedCategoryId =
-                    //                 categoryList[index]["id"],
-                    //           ),
-                    //           context.pop(),
-                    //         },
-
-                    //         child: Container(
-                    //           padding: .symmetric(horizontal: PaddingScale.lg),
-                    //           decoration: BoxDecoration(
-                    //             color: context.colorExtension.bgCard,
-                    //             borderRadius: BorderRadius.circular(
-                    //               BorderRadiusScale.sm,
-                    //             ),
-                    //             border: Border.all(
-                    //               width:
-                    //                   _selectedCategoryId ==
-                    //                       categoryList[index]["id"]
-                    //                   ? 2
-                    //                   : 1,
-                    //               color:
-                    //                   _selectedCategoryId ==
-                    //                       categoryList[index]["id"]
-                    //                   ? AppColors.primary
-                    //                   : context.colorExtension.outlinedBorder ??
-                    //                         AppColors.outlinedBorderLight,
-                    //             ),
-                    //           ),
-                    //           child: Center(
-                    //             child: Text(
-                    //               categoryList[index]["name"],
-                    //               style: context.textTheme.labelLarge,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       );
-                    //     },
-                    //     separatorBuilder: (context, index) {
-                    //       return SizedBox(width: SpacingScale.md);
-                    //     },
-                    //     itemCount: categoryList.length,
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  OutlineInputBorder _buildOutlineInputBorder(
+    BuildContext context,
+    bool isSelected,
+    Color? color,
+  ) {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(BorderRadiusScale.sm),
+      borderSide: BorderSide(
+        width: isSelected ? 2 : 1,
+        color: isSelected
+            ? color ?? AppColors.primary
+            : context.colorExtension.outlinedBorder ??
+                  AppColors.outlinedBorderLight,
       ),
     );
   }

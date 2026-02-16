@@ -14,6 +14,7 @@ final ligtTheme = ThemeData(
     brightness: Brightness.light,
     seedColor: AppColors.primary,
     surface: AppColors.surfaceLight,
+    onSurface: AppColors.textPrimaryLight,
     primary: AppColors.primary,
     onPrimary: AppColors.textPrimaryDark,
     error: AppColors.errorBackground,
@@ -35,10 +36,11 @@ final ligtTheme = ThemeData(
       fontWeight: FontWeight.w500,
       color: AppColors.textPrimaryLight,
     ),
+    
     // Subtitle body
     bodySmall: TextStyle(
       fontSize: 16,
-      fontWeight: FontWeight.w300,
+      fontWeight: FontWeight.w400,
       color: AppColors.textLabelLight,
     ),
     titleLarge: TextStyle(
@@ -85,6 +87,7 @@ final darkTheme = ThemeData(
     seedColor: AppColors.primary,
     brightness: Brightness.dark,
     surface: AppColors.surfaceDark,
+    onSurface: AppColors.textPrimaryDark,
     primary: AppColors.primary,
     onPrimary: AppColors.textPrimaryDark,
     error: AppColors.errorBackground,
@@ -114,17 +117,18 @@ final darkTheme = ThemeData(
       fontWeight: FontWeight.w500,
       color: AppColors.textPrimaryDark,
     ),
+    
     // Title page
     titleMedium: TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w500,
-      color: AppColors.textPrimaryLight,
+      color: AppColors.textPrimaryDark,
     ),
 
     titleSmall: TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w500,
-      color: AppColors.textPrimaryLight,
+      color: AppColors.textPrimaryDark,
     ),
     labelLarge: TextStyle(
       fontSize: 14,

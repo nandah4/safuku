@@ -1,54 +1,29 @@
-import 'package:safuku/data/models/language_model.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+
+import 'package:safuku/domain/repositories/personalization_repository.dart';
 import 'package:safuku/ui/core/themes/app_colors.dart';
 import 'package:safuku/ui/core/themes/app_dimens.dart';
 import 'package:safuku/ui/core/themes/extensions/theme_extension.dart';
 import 'package:safuku/ui/core/ui/button_primary.dart';
-import 'package:safuku/ui/onboard/screens/onboard_currency_screen.dart';
 import 'package:flutter/material.dart';
+
+class Language {
+  final String id;
+  final String name;
+  final String flagIcon;
+
+  Language({required this.id, required this.name, required this.flagIcon});
+}
 
 final languageList = [
   Language(id: 'id', name: 'Indonesia', flagIcon: '🇮🇩'),
   Language(id: 'en', name: 'English', flagIcon: '🇬🇧'),
-  Language(id: 'jp', name: 'Japanese', flagIcon: '🇯🇵'),
-  Language(id: 'my', name: 'Malaysia', flagIcon: '🇲🇾'),
-  Language(id: 'sg', name: 'Singapore', flagIcon: '🇸🇬'),
-  Language(id: 'bn', name: 'Brunei', flagIcon: '🇧🇳'),
-  Language(id: 'tl', name: 'Timor Leste', flagIcon: '🇹🇱'),
-  Language(id: 'ph', name: 'Philippines', flagIcon: '🇵🇭'),
-  Language(id: 'th', name: 'Thailand', flagIcon: '🇹🇭'),
-  Language(id: 'vn', name: 'Vietnam', flagIcon: '🇻🇳'),
-  Language(id: 'kh', name: 'Cambodia', flagIcon: '🇰🇭'),
-  Language(id: 'la', name: 'Laos', flagIcon: '🇱🇦'),
-  Language(id: 'mm', name: 'Myanmar', flagIcon: '🇲🇲'),
-  Language(id: 'cn', name: 'China', flagIcon: '🇨🇳'),
-  Language(id: 'tw', name: 'Taiwan', flagIcon: '🇹🇼'),
-  Language(id: 'kr', name: 'South Korea', flagIcon: '🇰🇷'),
-  Language(id: 'au', name: 'Australia', flagIcon: '🇦🇺'),
-  Language(id: 'nz', name: 'New Zealand', flagIcon: '🇳🇿'),
-  Language(id: 'as', name: 'America Serikat', flagIcon: '🇺🇸'),
-  Language(id: 'ar', name: 'Arab Saudi', flagIcon: '🇸🇦'),
-  Language(id: 'ae', name: 'Uni Emirat Arab', flagIcon: '🇦🇪'),
-  Language(id: "hk", name: "Hong Kong", flagIcon: "🇭🇰"),
-  Language(id: "blnd", name: "Belanda", flagIcon: "🇳🇱"),
-  Language(id: "frnch", name: "Prancis", flagIcon: "🇫🇷"),
-  Language(id: "de", name: "Jerman", flagIcon: "🇩🇪"),
-  Language(id: "es", name: "Spanyol", flagIcon: "🇪🇸"),
-  Language(id: "it", name: "Italia", flagIcon: "🇮🇹"),
-  Language(id: "ru", name: "Rusia", flagIcon: "🇷🇺"),
-  Language(id: "tr", name: "Turki", flagIcon: "🇹🇷"),
-  Language(id: "grk", name: "Yunani", flagIcon: "🇬🇷"),
-  Language(id: "pl", name: "Polandia", flagIcon: "🇵🇱"),
-  Language(id: "cz", name: "Ceko", flagIcon: "🇨🇿"),
-  Language(id: "hu", name: "Hungaria", flagIcon: "🇭🇺"),
-  Language(id: "fi", name: "Finlandia", flagIcon: "🇫🇮"),
-  Language(id: "no", name: "Norwegia", flagIcon: "🇳🇴"),
-  Language(id: "se", name: "Swedia", flagIcon: "🇸🇪"),
-  Language(id: "dk", name: "Denmark", flagIcon: "🇩🇰"),
-  Language(id: "ch", name: "Swiss", flagIcon: "🇨🇭"),
-  Language(id: "at", name: "Austria", flagIcon: "🇦🇹"),
-  Language(id: "be", name: "Belgia", flagIcon: "🇧🇪"),
-  Language(id: "ie", name: "Irlandia", flagIcon: "🇮🇪"),
-  Language(id: "pt", name: "Portugis", flagIcon: "🇵🇹"),
+  Language(id: 'ja', name: 'Japanese', flagIcon: '🇯🇵'),
+  // Language(id: 'cn', name: 'China', flagIcon: '🇨🇳'),
+  // Language(id: 'kr', name: 'South Korea', flagIcon: '🇰🇷'),
+  // Language(id: 'ar', name: 'Arab Saudi', flagIcon: '🇸🇦'),
 ];
 
 class OnboardLanguageScreen extends StatefulWidget {
@@ -62,6 +37,8 @@ class _OnboardLanguageScreenState extends State<OnboardLanguageScreen> {
   late final ScrollController _scrollController;
   String? _selectedLanguage;
   bool _isSliverAppBarPinned = false;
+
+  final setLanguage = Get.find<PersonalizationRepository>();
 
   @override
   void initState() {
@@ -96,7 +73,12 @@ class _OnboardLanguageScreenState extends State<OnboardLanguageScreen> {
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: _isSliverAppBarPinned
-                  ? Text("Language", style: context.textTheme.titleSmall)
+                  ? Text(
+                      context.localizations.language,
+                      style: context.textTheme.titleMedium?.copyWith(
+                        color: context.colorScheme.onSurface,
+                      ),
+                    )
                   : null,
             ),
           ),
@@ -115,13 +97,17 @@ class _OnboardLanguageScreenState extends State<OnboardLanguageScreen> {
                   ),
                   const SizedBox(height: SpacingScale.sm),
                   Text(
-                    'Choose your language',
-                    style: context.textTheme.bodyMedium,
+                    context.localizations.chooseLanguage,
+                    style: context.textTheme.bodyMedium?.copyWith(height: 1),
                   ),
-                  const SizedBox(height: SpacingScale.xs),
-                  Text(
-                    'You can change this anytime in settings.',
-                    style: context.textTheme.bodySmall,
+                  const SizedBox(height: SpacingScale.sm),
+                  SizedBox(
+                    width: context.screenSize.width * .85,
+                    child: Text(
+                      textAlign: .center,
+                      context.localizations.changeLanguageAnytime,
+                      style: context.textTheme.bodySmall?.copyWith(height: 1.2),
+                    ),
                   ),
                   const SizedBox(height: SpacingScale.xl),
                 ],
@@ -171,10 +157,11 @@ class _OnboardLanguageScreenState extends State<OnboardLanguageScreen> {
                         Text(
                           languageList[index].flagIcon,
                           style: context.textTheme.bodyMedium?.copyWith(
-                            fontSize: IconSizeScale.lg * 2,
+                            height: 1,
+                            fontSize: IconSizeScale.xl,
                           ),
                         ),
-                        const SizedBox(height: SpacingScale.xs),
+                        const SizedBox(height: SpacingScale.sm),
                         Text(
                           languageList[index].name,
                           textAlign: .center,
@@ -196,13 +183,14 @@ class _OnboardLanguageScreenState extends State<OnboardLanguageScreen> {
       bottomNavigationBar: SafeArea(
         minimum: .symmetric(horizontal: PaddingScale.lg),
         child: ButtonPrimary(
-          text: 'Continue',
+          text: context.localizations.continueButton,
           isDisabled: _selectedLanguage == null,
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => OnboardCurrencyScreen()),
-            );
+            if (_selectedLanguage != null) {
+              setLanguage.setString(key: 'language', value: _selectedLanguage!);
+              Get.updateLocale(Locale(_selectedLanguage!));
+              Get.toNamed('/onboard-currency');
+            }
           },
         ),
       ),

@@ -1,0 +1,106 @@
+{
+    "language": "Bahasa",
+    "@language": {
+        "description": "Title for language selection screen"
+    },
+    "chooseLanguage": "Pilih bahasa",
+    "@chooseLanguage": {
+        "description": "Title for language selection screen"
+    },
+    "changeLanguageAnytime": "Kamu bisa mengubah ini kapan saja di pengaturan.",
+    "@changeLanguageAnytime": {
+        "description": "Subtitle explaining language can be changed later"
+    },
+    "chooseCurrency": "Pilih mata uang",
+    "@chooseCurrency": {
+        "description": "Title for currency selection screen"
+    },
+    "changeCurrencyAnytime": "Ini akan digunakan untuk semua transaksi Anda.",
+    "@changeCurrencyAnytime": {
+        "description": "Description for currency selection screen"
+    },
+    "selectCurrencyButton": "Pilih mata uang",
+    "@selectCurrencyButton": {
+        "description": "Button for currency selection screen"
+    },
+    "hintTextSearchCurrency": "Cari mata uang",
+    "@hintTextSearchCurrency": {
+        "description": "Hint text for currency search"
+    },
+    "continueButton": "Lanjutkan",
+    "@continueButton": {
+        "description": "Continue button text"
+    },
+    "labelIncome": "Pemasukan",
+    "@labelIncome": {
+        "description": "Label for income"
+    },
+    "labelExpense": "Pengeluaran",
+    "@labelExpense": {
+        "description": "Label for expense"
+    },
+    "labelCurrentBalance": "Saldo Saat Ini",
+    "@labelCurrentBalance": {
+        "description": "Label for current balance"
+    },
+    "recentTransaction": "Transaksi Terbaru",
+    "@recentTransaction": {
+        "description": "Title for recent transaction"
+    },
+    "seeAll": "Lihat Semua",
+    "@seeAll": {
+        "description": "Label for see all"
+    },
+    "thanLastWeek": "Dibanding Minggu Lalu",
+    "@thanLastWeek": {
+        "description": "Label for than last week"
+    },
+    "wallet": "Dompet",
+    "@wallet": {
+        "description": "Title for wallet"
+    },
+    "totalAmount": "Jumlah Total",
+    "@totalAmount": {
+        "description": "Label for total amount"
+    },
+    "addWallet": "Tambah Dompet",
+    "@addWallet": {
+        "description": "Label for add wallet"
+    },
+    "updateWallet": "Update Dompet",
+    "@updateWallet": {
+        "description": "Label for update wallet"
+    },
+    "amount": "Jumlah",
+    "@amount": {
+        "description": "Label for amount"
+    },
+    "createWalletButton": "Buat Dompet",
+    "@createWalletButton": {
+        "description": "Button for create wallet"
+    },
+    "updateWalletButton": "Update Dompet",
+    "@updateWalletButton": {
+        "description": "Button for update wallet"
+    },
+    "walletName": "Nama Dompet",
+    "@walletName": {
+        "description": "Label for wallet name"
+    },
+    "walletColor": "Warna Dompet (Opsional)",
+    "@walletColor": {
+        "description": "Label for wallet color"
+    },
+    "pickColor": "Pilih Warna",
+    "@pickColor": {
+        "description": "Button for pick color"
+    },
+    "cancel": "Batal",
+    "@cancel": {
+        "description": "Button for cancel"
+    },
+    "save": "Simpan",
+    "@save": {
+        "description": "Button for save"
+    }
+}

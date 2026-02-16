@@ -1,0 +1,106 @@
+{
+    "language": "言語",
+    "@language": {
+        "description": "Title for language selection screen"
+    },
+    "chooseLanguage": "言語を選択",
+    "@chooseLanguage": {
+        "description": "Title for language selection screen"
+    },
+    "changeLanguageAnytime": "設定でいつでも変更できます。",
+    "@changeLanguageAnytime": {
+        "description": "Description for language selection screen"
+    },
+    "chooseCurrency": "通貨を選択",
+    "@chooseCurrency": {
+        "description": "Title for currency selection screen"
+    },
+    "changeCurrencyAnytime": "これはすべての取引に使用されます。",
+    "@changeCurrencyAnytime": {
+        "description": "Description for currency selection screen"
+    },
+    "selectCurrencyButton": "通貨を選択",
+    "@selectCurrencyButton": {
+        "description": "Button for currency selection screen"
+    },
+    "hintTextSearchCurrency": "通貨を検索",
+    "@hintTextSearchCurrency": {
+        "description": "Hint text for currency search"
+    },
+    "continueButton": "次へ",
+    "@continueButton": {
+        "description": "Button for language selection screen"
+    },
+    "labelIncome": "収入",
+    "@labelIncome": {
+        "description": "Label for income"
+    },
+    "labelExpense": "支出",
+    "@labelExpense": {
+        "description": "Label for expense"
+    },
+    "labelCurrentBalance": "現在の残高",
+    "@labelCurrentBalance": {
+        "description": "Label for current balance"
+    },
+    "recentTransaction": "最近の取引",
+    "@recentTransaction": {
+        "description": "Title for recent transaction"
+    },
+    "seeAll": "すべて表示",
+    "@seeAll": {
+        "description": "Label for see all"
+    },
+    "thanLastWeek": "先週比",
+    "@thanLastWeek": {
+        "description": "Label for than last week"
+    },
+    "wallet": "ウォレット",
+    "@wallet": {
+        "description": "Title for wallet"
+    },
+    "totalAmount": "総額",
+    "@totalAmount": {
+        "description": "Label for total amount"
+    },
+    "addWallet": "ウォレットを追加",
+    "@addWallet": {
+        "description": "Label for add wallet"
+    },
+    "updateWallet": "ウォレットを更新",
+    "@updateWallet": {
+        "description": "Label for update wallet"
+    },
+    "amount": "金額",
+    "@amount": {
+        "description": "Label for amount"
+    },
+    "createWalletButton": "ウォレットを作成",
+    "@createWalletButton": {
+        "description": "Button for create wallet"
+    },
+    "updateWalletButton": "ウォレットを更新",
+    "@updateWalletButton": {
+        "description": "Button for update wallet"
+    },
+    "walletName": "ウォレット名",
+    "@walletName": {
+        "description": "Label for wallet name"
+    },
+    "walletColor": "ウォレットの色 (任意)",
+    "@walletColor": {
+        "description": "Label for wallet color"
+    },
+    "pickColor": "色を選択",
+    "@pickColor": {
+        "description": "Button for pick color"
+    },
+    "cancel": "キャンセル",
+    "@cancel": {
+        "description": "Button for cancel"
+    },
+    "save": "保存",
+    "@save": {
+        "description": "Button for save"
+    }
+}

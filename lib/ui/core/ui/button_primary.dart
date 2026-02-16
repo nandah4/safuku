@@ -6,12 +6,14 @@ import 'package:flutter/material.dart';
 class ButtonPrimary extends StatelessWidget {
   final VoidCallback? onPressed;
   final bool isDisabled;
+  final bool isLoading;
   final String text;
   const ButtonPrimary({
     super.key,
     this.onPressed,
     required this.text,
     this.isDisabled = false,
+    this.isLoading = false,
   });
 
   @override
@@ -44,14 +46,20 @@ class ButtonPrimary extends StatelessWidget {
                 borderRadius: BorderRadius.circular(BorderRadiusScale.sm),
               ),
             ),
-            child: Text(
-              text,
-              style: context.textTheme.labelLarge?.copyWith(
-                color: isDisabled
-                    ? context.colorScheme.onSurface
-                    : Colors.white,
-              ),
-            ),
+            child: isLoading
+                ? Center(
+                    child: CircularProgressIndicator(
+                      color: context.colorScheme.onPrimary,
+                    ),
+                  )
+                : Text(
+                    text,
+                    style: context.textTheme.labelLarge?.copyWith(
+                      color: isDisabled
+                          ? context.colorScheme.onSurface
+                          : Colors.white,
+                    ),
+                  ),
           ),
         ),
       ),

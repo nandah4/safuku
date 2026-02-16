@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:safuku/ui/core/themes/app_colors.dart';
 import 'package:safuku/ui/core/themes/app_dimens.dart';
 import 'package:safuku/ui/core/themes/extensions/theme_extension.dart';
-import 'package:safuku/ui/core/ui/modal_delete_item.dart';
 import 'package:safuku/ui/core/ui/transaction_card_widget.dart';
+import 'package:safuku/ui/reports/controllers/transaction_history_controller.dart';
 
-class HistoryTab extends StatefulWidget {
-  const HistoryTab({super.key});
+class HistoryTab extends StatelessWidget {
+  HistoryTab({super.key});
 
-  @override
-  State<HistoryTab> createState() => _HistoryTabState();
-}
+  final TransactionHistoryController _controller =
+      Get.find<TransactionHistoryController>();
 
-class _HistoryTabState extends State<HistoryTab> {
-  DateTime? _selectedDate;
-
-  Future<void> _selectDate() async {
+  Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showMonthPicker(
       monthPickerDialogSettings: MonthPickerDialogSettings(
         dialogSettings: PickerDialogSettings(
@@ -44,8 +43,14 @@ class _HistoryTabState extends State<HistoryTab> {
             vertical: PaddingScale.md,
           ),
           buttonSpacing: SpacingScale.sm,
-          confirmWidget: Text("Confirm", style: context.textTheme.labelLarge),
-          cancelWidget: Text("Cancel", style: context.textTheme.labelLarge),
+          confirmWidget: Text(
+            context.localizations.save,
+            style: context.textTheme.labelLarge,
+          ),
+          cancelWidget: Text(
+            context.localizations.cancel,
+            style: context.textTheme.labelLarge,
+          ),
         ),
         dateButtonsSettings: PickerDateButtonsSettings(
           unselectedMonthsTextColor: context.colorExtension.unselectedTextColor,
@@ -55,19 +60,22 @@ class _HistoryTabState extends State<HistoryTab> {
       context: context,
       firstDate: DateTime(2000),
       lastDate: DateTime(9000),
-      initialDate: DateTime.now(),
+      initialDate: _controller.selectedDate.value ?? DateTime.now(),
     );
 
-    if (picked != null) setState(() => _selectedDate = picked);
+    if (picked != null) {
+      _controller.setSelectedDate(picked);
+    }
   }
-
-  String get _selectedDateString =>
-      DateFormat("MMMM yyyy").format(_selectedDate ?? DateTime.now());
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: .symmetric(horizontal: SpacingScale.lg),
+      padding: .only(
+        top: SpacingScale.sm,
+        left: SpacingScale.lg,
+        right: SpacingScale.lg,
+      ),
       child: Column(
         crossAxisAlignment: .start,
         children: [
@@ -76,72 +84,108 @@ class _HistoryTabState extends State<HistoryTab> {
             mainAxisAlignment: .spaceBetween,
             children: [
               Text("Transaction History", style: context.textTheme.titleSmall),
-              GestureDetector(
-                onTap: () {
-                  _selectDate();
-                },
-                child: Row(
+              Obx(() {
+                final isFilterActive = _controller.selectedDate.value != null;
+
+                return Row(
                   children: [
-                    Icon(
-                      FontAwesomeIcons.solidCalendar,
-                      size: IconSizeScale.md,
-                      color: AppColors.primary,
-                    ),
-                    const SizedBox(width: SpacingScale.sm),
-                    Text(
-                      _selectedDateString,
-                      style: context.textTheme.labelLarge?.copyWith(
-                        color: context.colorExtension.textPrimary,
+                    GestureDetector(
+                      onTap: () => _selectDate(context),
+                      child: Row(
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.solidCalendar,
+                            size: IconSizeScale.md,
+                            color: AppColors.primary,
+                          ),
+                          const SizedBox(width: SpacingScale.sm),
+                          Text(
+                            _controller.formattedDate.value,
+                            style: context.textTheme.titleSmall?.copyWith(
+                              color: isFilterActive ? AppColors.primary : null,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+
+                    if (isFilterActive) ...[
+                      const SizedBox(width: SpacingScale.sm),
+                      GestureDetector(
+                        onTap: () => _controller.setSelectedDate(null),
+                        child: Icon(
+                          Icons.close,
+                          size: IconSizeScale.md,
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ],
                   ],
-                ),
-              ),
+                );
+              }),
             ],
           ),
           const SizedBox(height: SpacingScale.xl),
 
-          Text("21 Desember 2026", style: context.textTheme.titleSmall),
-          const SizedBox(height: SpacingScale.sm),
-          InkWell(
-            borderRadius: BorderRadius.circular(BorderRadiusScale.sm),
-            onLongPress: () {
-              showModalBottomSheet(
-                context: context,
-                useRootNavigator: true,
-                isScrollControlled: true,
-                constraints: BoxConstraints(
-                  maxHeight: context.screenSize.height * 0.9,
-                ),
-                builder: (context) {
-                  return ModalDeleteItem(
-                    iconColor: AppColors.error,
-                    icon: FontAwesomeIcons.wallet,
-                    title: "Delete Wallet",
-                    description: "Are you sure you want to delete this wallet?",
-                    onDelete: () {
-                      print("Delete");
-                    },
-                  );
-                },
-              );
-            },
-            child: TransactionCardWidget(
-              title: "Shopping",
-              detail: "Book Store",
-              amount: "Rp 100.000",
-              wallet: "BNI",
-              type: "expense",
-            ),
-          ),
-          const SizedBox(height: SpacingScale.md),
-          TransactionCardWidget(
-            title: "Salary",
-            detail: "Salary",
-            amount: "Rp 100.000",
-            wallet: "BRI",
-            type: "income",
-          ),
+          Obx(() {
+            final groupedItems = _controller.groupedTransactions;
+            final keys = groupedItems.keys.toList();
+
+            if (keys.isEmpty) {
+              return Text("Empty");
+            }
+
+            return ListView.separated(
+              physics: const NeverScrollableScrollPhysics(),
+              padding: .only(bottom: SpacingScale.xl),
+              shrinkWrap: true,
+              itemCount: keys.length,
+              itemBuilder: (context, index) {
+                final dateHeader = keys[index];
+                final transactionList = groupedItems[dateHeader]!;
+
+                return Column(
+                  crossAxisAlignment: .start,
+                  children: [
+                    Text(dateHeader, style: context.textTheme.titleSmall),
+                    const SizedBox(height: SpacingScale.sm),
+                    ListView.separated(
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: .only(bottom: SpacingScale.xl),
+                      shrinkWrap: true,
+                      itemCount: transactionList.length,
+                      itemBuilder: (context, index) {
+                        final transaction = transactionList[index];
+                        return InkWell(
+                          borderRadius: BorderRadius.circular(
+                            BorderRadiusScale.sm,
+                          ),
+                          onTap: () {
+                            Get.toNamed(
+                              '/transaction-detail/${transaction.id}',
+                            );
+                          },
+                          child: TransactionCardWidget(
+                            title: transaction.title,
+                            category: transaction.categoryName ?? "",
+                            amount: transaction.amount,
+                            wallet: transaction.walletName ?? "",
+                            type: transaction.type,
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(height: SpacingScale.md);
+                      },
+                    ),
+                  ],
+                );
+              },
+              separatorBuilder: (context, index) {
+                return const SizedBox(height: SpacingScale.xs);
+              },
+            );
+          }),
         ],
       ),
     );

@@ -1,0 +1,106 @@
+{
+    "language": "Language",
+    "@language": {
+        "description": "Title for language selection screen"
+    },
+    "chooseLanguage": "Choose your language",
+    "@chooseLanguage": {
+        "description": "Title for language selection screen"
+    },
+    "changeLanguageAnytime": "You can change this anytime in settings.",
+    "@changeLanguageAnytime": {
+        "description": "Title for language selection screen"
+    },
+    "chooseCurrency": "Choose your currency",
+    "@chooseCurrency": {
+        "description": "Title for currency selection screen"
+    },
+    "changeCurrencyAnytime": "This will be used for all your transactions.",
+    "@changeCurrencyAnytime": {
+        "description": "Title for currency selection screen"
+    },
+    "selectCurrencyButton": "Select Currency",
+    "@selectCurrencyButton": {
+        "description": "Button for currency selection screen"
+    },
+    "hintTextSearchCurrency": "Search currency",
+    "@hintTextSearchCurrency": {
+        "description": "Hint text for currency search"
+    },
+    "continueButton": "Continue",
+    "@continueButton": {
+        "description": "Title for language selection screen"
+    },
+    "labelIncome": "Income",
+    "@labelIncome": {
+        "description": "Label for income"
+    },
+    "labelExpense": "Expense",
+    "@labelExpense": {
+        "description": "Label for expense"
+    },
+    "labelCurrentBalance": "Current Balance",
+    "@labelCurrentBalance": {
+        "description": "Label for current balance"
+    },
+    "recentTransaction": "Recent Transaction",
+    "@recentTransaction": {
+        "description": "Title for recent transaction"
+    },
+    "seeAll": "See All",
+    "@seeAll": {
+        "description": "Label for see all"
+    },
+    "thanLastWeek": "Than Last Week",
+    "@thanLastWeek": {
+        "description": "Label for than last week"
+    },
+    "wallet": "Wallet",
+    "@wallet": {
+        "description": "Title for wallet"
+    },
+    "totalAmount": "Total Amount",
+    "@totalAmount": {
+        "description": "Label for total amount"
+    },
+    "addWallet": "Add Wallet",
+    "@addWallet": {
+        "description": "Label for add wallet"
+    },
+    "updateWallet": "Update Wallet",
+    "@updateWallet": {
+        "description": "Label for update wallet"
+    },
+    "amount": "Amount",
+    "@amount": {
+        "description": "Label for amount"
+    },
+    "createWalletButton": "Create Wallet",
+    "@createWalletButton": {
+        "description": "Button for create wallet"
+    },
+    "updateWalletButton": "Update Wallet",
+    "@updateWalletButton": {
+        "description": "Button for update wallet"
+    },
+    "walletName": "Wallet Name",
+    "@walletName": {
+        "description": "Label for wallet name"
+    },
+    "walletColor": "Wallet Color (Optional)",
+    "@walletColor": {
+        "description": "Label for wallet color"
+    },
+    "pickColor": "Pick Color",
+    "@pickColor": {
+        "description": "Button for pick color"
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "Button for cancel"
+    },
+    "save": "Save",
+    "@save": {
+        "description": "Button for save"
+    }
+}

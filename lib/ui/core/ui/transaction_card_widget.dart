@@ -1,23 +1,27 @@
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:safuku/ui/core/themes/app_colors.dart';
 import 'package:safuku/ui/core/themes/app_dimens.dart';
 import 'package:safuku/ui/core/themes/extensions/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:safuku/ui/core/utils/formatter.dart';
+import 'package:safuku/ui/core/utils/truncation_text.dart';
 
 class TransactionCardWidget extends StatelessWidget {
   final IconData? icon;
-  final String title;
-  final String? detail;
-  final String amount;
+  final String category;
+  final String? title;
+  final int amount;
   final DateTime? date;
   final String wallet;
   final String type;
   const TransactionCardWidget({
     super.key,
     this.icon,
-    required this.title,
-    this.detail,
+    required this.category,
+    this.title,
     required this.amount,
     this.date,
     required this.wallet,
@@ -73,17 +77,21 @@ class TransactionCardWidget extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          title,
+                          truncateText(category, 13),
                           style: context.textTheme.labelLarge?.copyWith(
                             color: context.colorExtension.textPrimary,
                           ),
                         ),
                         const Spacer(),
                         Text(
-                          amount,
-                          style: context.textTheme.labelLarge?.copyWith(
+                          Get.find<Formatter>().formatAmountWithCurrency(
+                            amount,
+                          ),
+                          style: context.textTheme.labelMedium?.copyWith(
                             fontWeight: FontWeight.w600,
-                            color: AppColors.error,
+                            color: type == "income"
+                                ? AppColors.success
+                                : AppColors.error,
                           ),
                         ),
                       ],
@@ -91,7 +99,7 @@ class TransactionCardWidget extends StatelessWidget {
 
                     const SizedBox(height: SpacingScale.xs),
                     Text(
-                      detail ?? '',
+                      truncateText(title ?? '-', 20),
                       style: context.textTheme.labelMedium?.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
