@@ -196,6 +196,7 @@ class HistoryTab extends StatelessWidget {
                             amount: transaction.amount,
                             wallet: transaction.walletName ?? "",
                             type: transaction.type,
+                            date: transaction.date,
                           ),
                         );
                       },
