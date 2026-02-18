@@ -19,14 +19,6 @@
 *   **💾 Local Backup & Restore**: Securely backup your database to prevent data loss.
 *   **🌍 Localization Support**: Available in English, Indonesian 🇮🇩, and Japanese 🇯🇵 with automatic currency formatting.
 
-## 📱 Screenshots
-
-| Dashboard | Transactions | Analytics | Settings |
-|:---:|:---:|:---:|:---:|
-| <img src="https://placehold.co/300x600?text=Dashboard" width="200"> | <img src="https://placehold.co/300x600?text=Transactions" width="200"> | <img src="https://placehold.co/300x600?text=Analytics" width="200"> | <img src="https://placehold.co/300x600?text=Settings" width="200"> |
-
-*(Add actual screenshots here)*
-
 ## 🛠 Tech Stack
 
 *   **Framework**: [Flutter](https://flutter.dev/)
