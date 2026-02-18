@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:safuku/ui/core/themes/app_colors.dart';
 import 'package:safuku/ui/core/themes/app_dimens.dart';
 import 'package:safuku/ui/core/themes/extensions/theme_extension.dart';
-import 'package:safuku/ui/core/utils/formatter.dart';
+import 'package:safuku/ui/core/utils/formatter_interface.dart';
 import 'package:safuku/ui/home/controllers/home_controller.dart';
 import 'package:safuku/ui/home/widgets/wallet_card_widget.dart';
 import 'package:safuku/ui/wallet/controllers/wallet_controller.dart';
@@ -16,14 +16,15 @@ class HomeHeader extends StatelessWidget {
 
   final HomeController _homeController = Get.find<HomeController>();
   final WalletController _walletController = Get.find<WalletController>();
-  final Formatter _Formatter = Get.find<Formatter>();
+  final FormatterInterface _formatter = Get.find<FormatterInterface>();
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Container(
-          height: 295,
+          // height: 295,
+          height: 270,
           width: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -41,7 +42,7 @@ class HomeHeader extends StatelessWidget {
           minimum: EdgeInsets.symmetric(horizontal: PaddingScale.lg),
           child: Column(
             children: [
-              const SizedBox(height: 75),
+              const SizedBox(height: SpacingScale.xl * 4),
               SizedBox(
                 width: double.infinity,
                 child: Column(
@@ -62,7 +63,7 @@ class HomeHeader extends StatelessWidget {
                         Obx(() {
                           return Text(
                             _homeController.isBalanceVisible.value
-                                ? _Formatter.formatAmountWithoutCurrency(
+                                ? _formatter.formatAmountWithoutCurrency(
                                     _walletController.totalSaldo.value,
                                   )
                                 : "*******",
@@ -86,22 +87,23 @@ class HomeHeader extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: SpacingScale.md),
-                    Text(
-                      "- 0,80 %  ${context.localizations.thanLastWeek}",
-                      style: context.textTheme.labelLarge?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        height: 1,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: SpacingScale.xl * 2),
+                    // Text(
+                    //   "- 0,80 %  ${context.localizations.thanLastWeek}",
+                    //   style: context.textTheme.labelLarge?.copyWith(
+                    //     color: Colors.white,
+                    //     fontWeight: FontWeight.w500,
+                    //     height: 1,
+                    //   ),
+                    //   textAlign: TextAlign.center,
+                    // ),
+                    // const SizedBox(height: SpacingScale.xl * 2),
+                    const SizedBox(height: SpacingScale.md * 2),
                     Obx(() {
                       return Row(
                         children: [
                           Expanded(
                             child: WalletCardWidget(
-                              balance: _Formatter.formatAmountWithCurrency(
+                              balance: _formatter.formatAmountWithCurrency(
                                 _homeController
                                     .transactionTypePerMonth
                                     .value
@@ -115,7 +117,7 @@ class HomeHeader extends StatelessWidget {
                           const SizedBox(width: SpacingScale.sm),
                           Expanded(
                             child: WalletCardWidget(
-                              balance: _Formatter.formatAmountWithCurrency(
+                              balance: _formatter.formatAmountWithCurrency(
                                 _homeController
                                     .transactionTypePerMonth
                                     .value

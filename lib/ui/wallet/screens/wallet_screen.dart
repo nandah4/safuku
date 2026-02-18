@@ -7,7 +7,8 @@ import 'package:safuku/ui/core/themes/app_colors.dart';
 import 'package:safuku/ui/core/themes/app_dimens.dart';
 import 'package:safuku/ui/core/themes/extensions/theme_extension.dart';
 import 'package:safuku/ui/core/ui/modal_delete_item.dart';
-import 'package:safuku/ui/core/utils/formatter.dart';
+import 'package:safuku/ui/core/utils/app_event_bus.dart';
+import 'package:safuku/ui/core/utils/formatter_interface.dart';
 import 'package:safuku/ui/wallet/controllers/add_wallet_controller.dart';
 import 'package:safuku/ui/wallet/controllers/wallet_controller.dart';
 import 'package:safuku/ui/wallet/widgets/add_wallet_widget.dart';
@@ -16,7 +17,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class WalletScreen extends StatelessWidget {
   final WalletController _walletControllers = Get.find();
-  final Formatter _formatter = Get.find<Formatter>();
+  final FormatterInterface _formatter = Get.find<FormatterInterface>();
 
   WalletScreen({super.key});
 
@@ -29,7 +30,12 @@ class WalletScreen extends StatelessWidget {
       context: context,
       builder: (_) {
         return GetBuilder<AddWalletController>(
-          init: AddWalletController(wallet: wallet),
+          init: AddWalletController(
+            walletRepository: Get.find(),
+            formatter: Get.find<FormatterInterface>(),
+            eventBus: Get.find<AppEventBus>(),
+            wallet: wallet,
+          ),
           builder: (controller) {
             return AddWalletWidget();
           },
@@ -114,10 +120,26 @@ class WalletScreen extends StatelessWidget {
       sliver: SliverToBoxAdapter(
         child: Obx(() {
           if (_walletControllers.wallets.isEmpty) {
-            return Center(
-              child: Text(
-                "No wallets found",
-                style: context.textTheme.labelLarge,
+            return SizedBox(
+              height: 230,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      FontAwesomeIcons.wallet,
+                      size: IconSizeScale.xl,
+                      color: context.colorExtension.textLabel,
+                    ),
+                    const SizedBox(height: SpacingScale.lg),
+                    Text(
+                      context.localizations.walletEmpty,
+                      style: context.textTheme.labelLarge?.copyWith(
+                        color: context.colorExtension.textLabel,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           }
@@ -135,13 +157,15 @@ class WalletScreen extends StatelessWidget {
                     showModalBottomSheet(
                       context: context,
                       useRootNavigator: true,
+                      showDragHandle: true,
+                      backgroundColor: context.colorScheme.surface,
                       builder: (context) {
                         return ModalDeleteItem(
                           iconColor: AppColors.error,
                           icon: FontAwesomeIcons.wallet,
-                          title: "Delete ${wallet.name} Wallet",
+                          title: wallet.name,
                           description:
-                              "Are you sure you want to delete ${wallet.name} wallet?",
+                              context.localizations.deleteWalletConfirm,
                           onDelete: () {
                             _walletControllers.deleteWallet(wallet.id);
                             Get.back();

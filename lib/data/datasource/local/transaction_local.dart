@@ -1,8 +1,8 @@
 import 'package:safuku/config/database/database_helper.dart';
 import 'package:safuku/data/models/transaction.dart';
 import 'package:safuku/data/models/transaction_type.dart';
-import 'package:safuku/core/utils/errors/exception.dart' as appException;
-import 'package:safuku/utils/logger.dart';
+import 'package:safuku/core/utils/errors/exception.dart' as appexception;
+import 'package:safuku/core/utils/logger.dart';
 import 'package:sqflite/sqflite.dart';
 
 class TransactionLocalDataSource {
@@ -28,7 +28,7 @@ class TransactionLocalDataSource {
       AppLogger.e(
         "Local Data Source : Transaction creation failed ${e.toString()}",
       );
-      throw appException.DatabaseException(e.toString());
+      throw appexception.DatabaseException(e.toString());
     }
   }
 
@@ -43,26 +43,19 @@ class TransactionLocalDataSource {
         where: 'id = ?',
         whereArgs: [transaction.id],
       );
-      AppLogger.w("""
-Local Data Source : amount ${transaction.amount}
-Local Data Source : name ${transaction.title}
-Local Data Source : type ${transaction.type}
-Local Data Source : wallet ${transaction.walletId}
-Local Data Source : category ${transaction.categoryId}
-
-
-
-""");
+      AppLogger.i(
+        "Local Data Source : Transaction updated successfully (id: ${transaction.id})",
+      );
       return result;
     } catch (e) {
       AppLogger.e(
         "Local Data Source : Transaction update failed ${e.toString()}",
       );
-      throw appException.DatabaseException(e.toString());
+      throw appexception.DatabaseException(e.toString());
     }
   }
 
-  Future<List<TransactionModel>> getALlTransaction(
+  Future<List<TransactionModel>> getAllTransactions(
     int? limit,
     DateTime? date,
   ) async {
@@ -113,7 +106,7 @@ Local Data Source : category ${transaction.categoryId}
       AppLogger.e(
         "Local Data Source : Transaction creation failed ${e.toString()}",
       );
-      throw appException.DatabaseException(e.toString());
+      throw appexception.DatabaseException(e.toString());
     }
   }
 
@@ -148,7 +141,7 @@ Local Data Source : category ${transaction.categoryId}
       AppLogger.e(
         "Local Data Source : Transaction type per month failed ${e.toString()}",
       );
-      throw appException.DatabaseException(e.toString());
+      throw appexception.DatabaseException(e.toString());
     }
   }
 
@@ -165,7 +158,7 @@ Local Data Source : category ${transaction.categoryId}
       AppLogger.e(
         "Local Data Source : Transaction deletion failed ${e.toString()}",
       );
-      throw appException.DatabaseException(e.toString());
+      throw appexception.DatabaseException(e.toString());
     }
   }
 
@@ -194,22 +187,98 @@ Local Data Source : category ${transaction.categoryId}
       );
 
       if (result.isEmpty) {
-        throw appException.DatabaseException('Transaction not found');
+        throw appexception.DatabaseException('Transaction not found');
       }
 
       AppLogger.i("Local Data Source : Transaction by id fetched successfully");
 
       return TransactionModel.fromMap(result.first);
-    } on appException.DatabaseException catch (e) {
+    } on appexception.DatabaseException catch (e) {
       AppLogger.e(
         "Local Data Source : Transaction by id failed ${e.toString()}",
       );
-      throw appException.DatabaseException(e.toString());
+      throw appexception.DatabaseException(e.toString());
     } catch (e) {
       AppLogger.e(
         "Local Data Source : Transaction by id failed ${e.toString()}",
       );
-      throw appException.UnknownException(e.toString());
+      throw appexception.UnknownException(e.toString());
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getSpendingByCategory(
+    DateTime date,
+    String type,
+  ) async {
+    try {
+      final database = await db.database;
+      final firstDay = DateTime(date.year, date.month, 1);
+      final lastDay = DateTime(date.year, date.month + 1, 1);
+
+      final sql =
+          """
+        SELECT
+          $tableName.category_id,
+          $categoryTable.name AS category_name,
+          SUM($tableName.amount) AS total_amount
+        FROM $tableName
+        JOIN $categoryTable ON $tableName.category_id = $categoryTable.id
+        WHERE $tableName.date >= ? AND $tableName.date < ?
+          AND $tableName.type = ?
+        GROUP BY $tableName.category_id
+        ORDER BY total_amount DESC
+      """;
+
+      final result = await database.rawQuery(sql, [
+        firstDay.toIso8601String(),
+        lastDay.toIso8601String(),
+        type,
+      ]);
+
+      AppLogger.i(
+        "Local Data Source : Spending by category fetched (${result.length} rows)",
+      );
+      return result;
+    } catch (e) {
+      AppLogger.e(
+        "Local Data Source : Spending by category failed ${e.toString()}",
+      );
+      throw appexception.DatabaseException(e.toString());
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getWeeklyBreakdown(DateTime date) async {
+    try {
+      final database = await db.database;
+      final firstDay = DateTime(date.year, date.month, 1);
+      final lastDay = DateTime(date.year, date.month + 1, 1);
+
+      final sql =
+          """
+        SELECT
+          ((CAST(strftime('%d', date) AS INTEGER) - 1) / 7 + 1) AS week_number,
+          SUM(amount) AS total_amount,
+          COUNT(*) AS transaction_count
+        FROM $tableName
+        WHERE date >= ? AND date < ?
+        GROUP BY week_number
+        ORDER BY week_number ASC
+      """;
+
+      final result = await database.rawQuery(sql, [
+        firstDay.toIso8601String(),
+        lastDay.toIso8601String(),
+      ]);
+
+      AppLogger.i(
+        "Local Data Source : Weekly breakdown fetched (${result.length} rows)",
+      );
+      return result;
+    } catch (e) {
+      AppLogger.e(
+        "Local Data Source : Weekly breakdown failed ${e.toString()}",
+      );
+      throw appexception.DatabaseException(e.toString());
     }
   }
 }

@@ -9,7 +9,7 @@ import 'package:safuku/ui/core/themes/app_colors.dart';
 import 'package:safuku/ui/core/themes/app_dimens.dart';
 import 'package:safuku/ui/core/themes/extensions/theme_extension.dart';
 import 'package:safuku/ui/core/ui/modal_delete_item.dart';
-import 'package:safuku/ui/core/utils/formatter.dart';
+import 'package:safuku/ui/core/utils/formatter_interface.dart';
 import 'package:safuku/ui/transactions/controllers/transaction_detail_controller.dart';
 import 'package:safuku/ui/transactions/widgets/item_detail.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -31,7 +31,9 @@ class TransactionDetailScreen extends StatelessWidget {
     final IconData typeIcon = type == "expense"
         ? FontAwesomeIcons.arrowTrendDown
         : FontAwesomeIcons.arrowTrendUp;
-    final String typeText = type == "expense" ? "Expense" : "Income";
+    final String typeText = type == "expense"
+        ? context.localizations.labelExpense
+        : context.localizations.labelIncome;
 
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -58,7 +60,6 @@ class TransactionDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(_detailController.transactionData.value?.description);
     return Scaffold(
       backgroundColor: context.colorScheme.surface,
       body: CustomScrollView(
@@ -68,7 +69,7 @@ class TransactionDetailScreen extends StatelessWidget {
             snap: true,
             floating: true,
             title: Text(
-              "Transaction Detail",
+              context.localizations.transactionDetail,
               style: context.textTheme.titleLarge,
             ),
             centerTitle: false,
@@ -110,14 +111,16 @@ class TransactionDetailScreen extends StatelessWidget {
                 onPressed: () {
                   showModalBottomSheet(
                     context: context,
+                    showDragHandle: true,
+                    backgroundColor: context.colorScheme.surface,
                     builder: (context) {
                       return ModalDeleteItem(
                         icon: FontAwesomeIcons.trash,
                         iconColor: AppColors.error,
                         title:
-                            "Delete Transaction ${_detailController.transactionData.value?.title}",
+                            "${_detailController.transactionData.value?.title}",
                         description:
-                            "Are you sure you want to delete this transaction?",
+                            context.localizations.deleteTransactionConfirm,
                         onDelete: () {
                           // Close modal first
                           Get.back();
@@ -172,7 +175,7 @@ class TransactionDetailScreen extends StatelessWidget {
                           TextBoneBorderRadius.fromHeightFactor(0.4),
                       enabled: _detailController.isLoading.value,
                       child: Text(
-                        Get.find<Formatter>().formatAmountWithCurrency(
+                        Get.find<FormatterInterface>().formatAmountWithCurrency(
                           _detailController.transactionData.value?.amount ?? 0,
                         ),
                         style: context.textStyleExtension.currencyLarge
@@ -199,7 +202,7 @@ class TransactionDetailScreen extends StatelessWidget {
                     ),
                     enabled: _detailController.isLoading.value,
                     child: ItemDetail(
-                      label: "Category",
+                      label: context.localizations.category,
                       value:
                           _detailController
                               .transactionData
@@ -220,7 +223,7 @@ class TransactionDetailScreen extends StatelessWidget {
                     ),
                     enabled: _detailController.isLoading.value,
                     child: ItemDetail(
-                      label: "Title",
+                      label: context.localizations.title,
                       value:
                           _detailController.transactionData.value?.title ?? '',
                       icon: FontAwesomeIcons.cartShopping,
@@ -237,7 +240,7 @@ class TransactionDetailScreen extends StatelessWidget {
                     ),
                     enabled: _detailController.isLoading.value,
                     child: ItemDetail(
-                      label: "Wallet",
+                      label: context.localizations.wallet,
                       value:
                           _detailController.transactionData.value?.walletName ??
                           '',
@@ -258,7 +261,7 @@ class TransactionDetailScreen extends StatelessWidget {
                     ),
                     enabled: _detailController.isLoading.value,
                     child: ItemDetail(
-                      label: "Date",
+                      label: context.localizations.date,
                       value: DateFormat('dd MMMM yyyy').format(
                         DateTime.tryParse(
                               _detailController.transactionData.value?.date
@@ -321,7 +324,7 @@ class TransactionDetailScreen extends StatelessWidget {
                               ),
                               const SizedBox(width: SpacingScale.md),
                               Text(
-                                "Notes",
+                                context.localizations.notes,
                                 style: context.textTheme.labelMedium?.copyWith(
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -340,7 +343,7 @@ class TransactionDetailScreen extends StatelessWidget {
                                       .transactionData
                                       .value!
                                       .description!
-                                : 'Write your notes here',
+                                : context.localizations.writeNotesHere,
                             style: context.textTheme.labelLarge?.copyWith(
                               color: context.colorExtension.textPrimary,
                             ),

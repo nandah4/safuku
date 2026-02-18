@@ -21,14 +21,17 @@ class TransactionTypeSelector extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Transaction Type", style: context.textTheme.titleSmall),
+            Text(
+              context.localizations.transactionType,
+              style: context.textTheme.titleSmall,
+            ),
             const SizedBox(height: SpacingScale.sm),
             Row(
               children: [
                 _buildTypeChip(
                   context,
                   "income",
-                  "Income",
+                  context.localizations.labelIncome,
                   AppColors.success,
                   AppColors.successBackground,
                 ),
@@ -36,7 +39,7 @@ class TransactionTypeSelector extends StatelessWidget {
                 _buildTypeChip(
                   context,
                   "expense",
-                  "Expense",
+                  context.localizations.labelExpense,
                   AppColors.error,
                   AppColors.errorBackground,
                 ),

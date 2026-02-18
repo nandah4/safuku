@@ -5,7 +5,7 @@ import 'package:safuku/domain/entities/wallet.dart';
 import 'package:safuku/domain/repositories/wallet_repository.dart';
 import 'package:safuku/core/utils/errors/failures.dart';
 import 'package:safuku/core/utils/errors/failure_mapper.dart';
-import 'package:safuku/utils/logger.dart';
+import 'package:safuku/core/utils/logger.dart';
 
 class WalletRepositoryImpl implements WalletRepository {
   final WalletDataSource walletDataSource;

@@ -1,18 +1,16 @@
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get.dart';
+import 'package:safuku/domain/repositories/personalization_repository.dart';
+import 'package:safuku/ui/core/controllers/personalization_controller.dart';
+import 'package:safuku/ui/core/controllers/shell_controller.dart';
+import 'package:safuku/ui/core/utils/app_event_bus.dart';
+import 'package:safuku/ui/core/utils/formatter.dart';
+import 'package:safuku/ui/core/utils/formatter_interface.dart';
 import 'package:safuku/config/database/database_helper.dart';
 import 'package:safuku/data/repositories/personalization_repository_impl.dart';
-import 'package:safuku/domain/repositories/personalization_repository.dart';
-import 'package:safuku/ui/core/utils/formatter.dart';
-import 'package:safuku/ui/core/utils/app_event_bus.dart';
-import 'package:safuku/ui/onboard/controllers/language_controller.dart';
 
 class InitialBinding {
   static Future<void> init() async {
-    // Event bus (app-level singleton)
     Get.put<AppEventBus>(AppEventBus(), permanent: true);
-
-    // Database helper
     Get.put<DatabaseHelper>(DatabaseHelper.instance, permanent: true);
 
     // Personalization repository
@@ -22,10 +20,18 @@ class InitialBinding {
       permanent: true,
     );
 
-    Get.put<LanguageController>(LanguageController());
+    Get.put<PersonalizationController>(
+      PersonalizationController(
+        repository: Get.find<PersonalizationRepository>(),
+      ),
+    );
 
-    Get.put<Formatter>(
-      Formatter(personalizationRepository: personalizationRepository),
+    Get.put<ShellController>(ShellController(), permanent: true);
+
+    Get.put<FormatterInterface>(
+      Formatter(
+        personalizationController: Get.find<PersonalizationController>(),
+      ),
     );
   }
 }

@@ -2,20 +2,34 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:safuku/core/utils/errors/failures.dart';
 import 'package:safuku/domain/entities/transaction.dart';
 import 'package:safuku/domain/entities/wallet.dart';
 import 'package:safuku/domain/repositories/transaction_repository.dart';
 import 'package:safuku/domain/repositories/wallet_repository.dart';
 import 'package:safuku/ui/core/utils/amount_validator.dart';
 import 'package:safuku/ui/core/utils/app_event_bus.dart';
-import 'package:safuku/core/utils/errors/failures.dart';
-import 'package:safuku/ui/core/utils/formatter.dart';
+import 'package:safuku/ui/core/utils/formatter_interface.dart';
 import 'package:safuku/ui/core/utils/snackbar_helper.dart';
-import 'package:safuku/utils/logger.dart';
+
+import 'package:safuku/core/utils/logger.dart';
+import 'package:safuku/l10n/app_localizations.dart';
 
 class TransactionController extends GetxController {
-  late final WalletRepository _walletRepository;
-  late final TransactionRepository _transactionRepository;
+  final WalletRepository _walletRepository;
+  final TransactionRepository _transactionRepository;
+  final AppEventBus _eventBus;
+  final FormatterInterface _formatter;
+
+  TransactionController({
+    required WalletRepository walletRepository,
+    required TransactionRepository transactionRepository,
+    required AppEventBus eventBus,
+    required FormatterInterface formatter,
+  }) : _walletRepository = walletRepository,
+       _transactionRepository = transactionRepository,
+       _eventBus = eventBus,
+       _formatter = formatter;
 
   // State action flag
   RxBool isUpdating = false.obs;
@@ -52,8 +66,6 @@ class TransactionController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _walletRepository = Get.find<WalletRepository>();
-    _transactionRepository = Get.find<TransactionRepository>();
     amountController = TextEditingController();
     nameController = TextEditingController();
     notesController = TextEditingController();
@@ -63,7 +75,7 @@ class TransactionController extends GetxController {
       isUpdating.value = true;
       transactionData.value = args!['transaction'] as TransactionEntity;
 
-      amountController.text = Get.find<Formatter>().formatAmountWithoutCurrency(
+      amountController.text = _formatter.formatAmountWithoutCurrency(
         transactionData.value!.amount,
       );
       nameController.text = transactionData.value!.title;
@@ -74,9 +86,8 @@ class TransactionController extends GetxController {
       categoryId.value = transactionData.value!.categoryId.toString();
     }
 
-    final eventBus = Get.find<AppEventBus>();
     _subscriptions = [
-      eventBus.on(AppEvent.walletChanged, (_) {
+      _eventBus.on(AppEvent.walletChanged, (_) {
         AppLogger.i('TransactionController: walletChanged event received');
         getWallets();
       }),
@@ -106,7 +117,10 @@ class TransactionController extends GetxController {
       walletsResult.fold(
         (failure) {
           SnackbarHelper.showError(
-            Failure(title: "Error", message: "Failed to get wallets"),
+            Failure(
+              title: AppLocalizations.of(Get.context!)!.errorGeneric,
+              message: AppLocalizations.of(Get.context!)!.errorFetchWallets,
+            ),
           );
           AppLogger.e(failure.message ?? failure.toString());
         },
@@ -116,7 +130,10 @@ class TransactionController extends GetxController {
       );
     } catch (e) {
       SnackbarHelper.showError(
-        Failure(title: "Error", message: "Failed to get wallets"),
+        Failure(
+          title: AppLocalizations.of(Get.context!)!.errorGeneric,
+          message: AppLocalizations.of(Get.context!)!.errorFetchWallets,
+        ),
       );
       AppLogger.e(e.toString());
     }
@@ -127,17 +144,19 @@ class TransactionController extends GetxController {
     bool isValid = true;
 
     if (transactionType.value.isEmpty) {
-      transactionTypeError.value = "Transaction type is required";
+      transactionTypeError.value = AppLocalizations.of(
+        Get.context!,
+      )!.transactionTypeRequired;
       isValid = false;
     }
 
     if (walletId.value.isEmpty) {
-      walletError.value = "Wallet is required";
+      walletError.value = AppLocalizations.of(Get.context!)!.walletRequired;
       isValid = false;
     }
 
     if (categoryId.value.isEmpty) {
-      categoryError.value = "Category is required";
+      categoryError.value = AppLocalizations.of(Get.context!)!.categoryRequired;
       isValid = false;
     }
 
@@ -162,7 +181,10 @@ class TransactionController extends GetxController {
 
   Future<void> submitTransaction() async {
     if (!_validateForm()) return;
-    final amountResult = AmountValidator.validateAmount(amountController.text);
+    final amountResult = AmountValidator.validateAmount(
+      amountController.text,
+      AppLocalizations.of(Get.context!)!,
+    );
     if (amountResult != null) {
       amountError.value = amountResult;
       AppLogger.e("CONTROLLER (FAILED VALIDATE AMOUNT) : ${amountError.value}");
@@ -172,7 +194,7 @@ class TransactionController extends GetxController {
     final amount = AmountValidator.parseAmount(amountController.text);
     if (amount == null) {
       AppLogger.e("CONTROLLER (FAILED PARSE AMOUNT) : $amount");
-      amountError.value = "Invalid amount";
+      amountError.value = AppLocalizations.of(Get.context!)!.amountInvalid;
       return;
     }
 
@@ -193,7 +215,10 @@ class TransactionController extends GetxController {
 
       if (transactionData.value == null && isUpdating.value) {
         SnackbarHelper.showError(
-          Failure(title: "Error", message: "Transaction data is empty"),
+          Failure(
+            title: AppLocalizations.of(Get.context!)!.errorGeneric,
+            message: AppLocalizations.of(Get.context!)!.transactionDataEmpty,
+          ),
         );
         AppLogger.e("Controller : Transaction data is null");
         return;
@@ -221,9 +246,8 @@ class TransactionController extends GetxController {
           AppLogger.i(
             "Controller : Transaction created successfully (id: $success)",
           );
-          final eventBus = Get.find<AppEventBus>();
-          eventBus.emit(AppEvent.transactionChanged);
-          eventBus.emit(AppEvent.walletChanged);
+          _eventBus.emit(AppEvent.transactionChanged);
+          _eventBus.emit(AppEvent.walletChanged);
           _resetForm();
           Get.back();
         },
@@ -231,7 +255,10 @@ class TransactionController extends GetxController {
     } catch (e) {
       AppLogger.e("Controller : Unexpected error ${e.toString()}");
       SnackbarHelper.showError(
-        Failure(title: "Error", message: "Failed to create transaction"),
+        Failure(
+          title: AppLocalizations.of(Get.context!)!.errorGeneric,
+          message: AppLocalizations.of(Get.context!)!.somethingWentWrong,
+        ),
       );
     } finally {
       isLoading.value = false;

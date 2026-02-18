@@ -51,7 +51,10 @@ class AddCategoryWidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: SpacingScale.sm),
-                Text("Category ", style: context.textTheme.titleMedium),
+                Text(
+                  "${context.localizations.category} ",
+                  style: context.textTheme.titleMedium,
+                ),
               ],
             ),
           ),
@@ -80,7 +83,7 @@ class AddCategoryWidget extends StatelessWidget {
                         filled: true,
                         fillColor: context.colorExtension.bgCard,
                         label: Text(
-                          "Category",
+                          context.localizations.categoryHint,
                           style: context.textTheme.labelLarge?.copyWith(
                             fontWeight: FontWeight.w400,
                           ),
@@ -120,17 +123,17 @@ class AddCategoryWidget extends StatelessWidget {
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return "Category name is required.";
+                          return context.localizations.valCategoryRequired;
                         }
                         if (!RegExp(r'^[a-zA-Z0-9 ]+$').hasMatch(value)) {
-                          return "Category name must not contain special characters.";
+                          return context.localizations.valCategorySpecialChars;
                         }
                         return null;
                       },
                     ),
                     const SizedBox(height: SpacingScale.lg),
                     ButtonPrimary(
-                      text: "Create Category",
+                      text: context.localizations.buttonCreateCategory,
                       onPressed: () {
                         if (_categoryController.formKey.currentState!
                             .validate()) {
@@ -144,7 +147,10 @@ class AddCategoryWidget extends StatelessWidget {
                     const SizedBox(height: SpacingScale.xl),
 
                     // All Categories
-                    Text("All Categories", style: context.textTheme.titleSmall),
+                    Text(
+                      context.localizations.allCategories,
+                      style: context.textTheme.titleSmall,
+                    ),
                     const SizedBox(height: SpacingScale.sm),
                     Obx(
                       () => Wrap(

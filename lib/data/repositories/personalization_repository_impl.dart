@@ -1,4 +1,4 @@
-import 'package:logger/logger.dart';
+import 'package:safuku/core/utils/logger.dart';
 import 'package:safuku/domain/repositories/personalization_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,7 +23,7 @@ class PersonalizationImpl implements PersonalizationRepository {
     _sharedPreferences = await SharedPreferencesWithCache.create(
       cacheOptions: SharedPreferencesWithCacheOptions(allowList: _keys),
     );
-    Logger().i("SharedPrefSetup initialized");
+    AppLogger.i("SharedPrefSetup initialized");
   }
 
   @override
@@ -38,7 +38,7 @@ class PersonalizationImpl implements PersonalizationRepository {
 
   @override
   Future<void> clear() async {
-    Logger().i("Clearing all data");
+    AppLogger.i("Clearing all data");
     await _sharedPreferences.clear();
   }
 }

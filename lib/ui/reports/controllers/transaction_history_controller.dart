@@ -3,24 +3,30 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:safuku/domain/entities/transaction.dart';
 import 'package:safuku/domain/repositories/transaction_repository.dart';
+import 'package:safuku/ui/core/themes/extensions/theme_extension.dart';
 import 'package:safuku/ui/core/utils/app_event_bus.dart';
-import 'package:safuku/utils/logger.dart';
+import 'package:safuku/core/utils/logger.dart';
 
 class TransactionHistoryController extends GetxController {
-  late final TransactionRepository _transactionRepository;
+  final TransactionRepository _transactionRepository;
+  final AppEventBus _eventBus;
   late final List<StreamSubscription> _subscriptions;
+
+  TransactionHistoryController({
+    required TransactionRepository transactionRepository,
+    required AppEventBus eventBus,
+  }) : _transactionRepository = transactionRepository,
+       _eventBus = eventBus;
 
   @override
   void onInit() {
     super.onInit();
-    _transactionRepository = Get.find<TransactionRepository>();
 
-    final eventBus = Get.find<AppEventBus>();
     _subscriptions = [
-      eventBus.on(AppEvent.transactionChanged, (_) {
+      _eventBus.on(AppEvent.transactionChanged, (_) {
         getTransactions();
       }),
-      eventBus.on(AppEvent.walletChanged, (_) {
+      _eventBus.on(AppEvent.walletChanged, (_) {
         getTransactions();
       }),
     ];
@@ -53,7 +59,7 @@ class TransactionHistoryController extends GetxController {
   // Formatted
   RxString get formattedDate => selectedDate.value != null
       ? DateFormat("MMMM yyyy").format(selectedDate.value!).obs
-      : "All Time".obs;
+      : Get.context!.localizations.allTime.obs;
 
   // Computed State - Grouping transaction by date
   Map<String, List<TransactionEntity>> get groupedTransactions {

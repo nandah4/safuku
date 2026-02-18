@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safuku/ui/core/themes/extensions/theme_extension.dart';
 import 'package:safuku/ui/reports/screens/history_tab.dart';
+import 'package:safuku/ui/reports/screens/statistic_tab.dart';
 
 class ReportScreen extends StatelessWidget {
   const ReportScreen({super.key});
@@ -18,7 +19,7 @@ class ReportScreen extends StatelessWidget {
               pinned: true,
               surfaceTintColor: context.colorScheme.surface,
               backgroundColor: context.colorScheme.surface,
-              title: Text('Reports', style: context.textTheme.titleLarge),
+              toolbarHeight: 0,
               bottom: TabBar(
                 indicatorColor: context.colorScheme.primary,
                 overlayColor: WidgetStatePropertyAll(
@@ -27,12 +28,15 @@ class ReportScreen extends StatelessWidget {
                 tabs: [
                   Tab(
                     child: Text(
-                      'Statistics',
+                      context.localizations.statistic,
                       style: context.textTheme.labelLarge,
                     ),
                   ),
                   Tab(
-                    child: Text('History', style: context.textTheme.labelLarge),
+                    child: Text(
+                      context.localizations.history,
+                      style: context.textTheme.labelLarge,
+                    ),
                   ),
                 ],
               ),
@@ -47,12 +51,7 @@ class ReportScreen extends StatelessWidget {
           ];
         },
 
-        body: TabBarView(
-          children: [
-            Center(child: Text('Statistics')),
-            HistoryTab(),
-          ],
-        ),
+        body: TabBarView(children: [StatisticTab(), HistoryTab()]),
       ),
     );
   }

@@ -1,4 +1,7 @@
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/route_manager.dart';
+import 'package:safuku/ui/core/controllers/shell_controller.dart';
 import 'package:safuku/ui/core/themes/app_colors.dart';
 import 'package:safuku/ui/core/themes/app_dimens.dart';
 import 'package:safuku/ui/core/themes/extensions/theme_extension.dart';
@@ -11,31 +14,28 @@ import 'package:safuku/ui/reports/screens/report_screen.dart';
 import 'package:safuku/ui/settings/screens/setting_screen.dart';
 import 'package:safuku/ui/wallet/screens/wallet_screen.dart';
 
-class MainScaffold extends StatefulWidget {
-  const MainScaffold({super.key});
+class MainScaffold extends StatelessWidget {
+  final ShellController _shellController = Get.find<ShellController>();
 
-  @override
-  State<MainScaffold> createState() => _MainScaffoldState();
-}
-
-class _MainScaffoldState extends State<MainScaffold> {
-  int _currentIndex = 0;
+  MainScaffold({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: [
-          HomeScreen(),
-          WalletScreen(),
-          const ReportScreen(),
-          SettingScreen(),
-        ],
+      body: Obx(
+        () => IndexedStack(
+          index: _shellController.currentIndex,
+          children: [
+            HomeScreen(),
+            WalletScreen(),
+            const ReportScreen(),
+            SettingScreen(),
+          ],
+        ),
       ),
       floatingActionButton: Container(
-        width: 55,
-        height: 55,
+        width: 50,
+        height: 50,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: .topCenter,
@@ -88,18 +88,24 @@ class _MainScaffoldState extends State<MainScaffold> {
                                   color: AppColors.primary,
                                 ),
                                 const SizedBox(width: SpacingScale.xl),
-                                Column(
-                                  crossAxisAlignment: .start,
-                                  children: [
-                                    Text(
-                                      "Add Transaction",
-                                      style: context.textTheme.titleSmall,
-                                    ),
-                                    Text(
-                                      "You can note your expanses or income.",
-                                      style: context.textTheme.labelMedium,
-                                    ),
-                                  ],
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        context.localizations.addTransaction,
+                                        style: context.textTheme.titleSmall,
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        context
+                                            .localizations
+                                            .youCanRecordExpensesAndIncome,
+                                        style: context.textTheme.labelMedium,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -110,7 +116,7 @@ class _MainScaffoldState extends State<MainScaffold> {
                         ButtonSecondary(
                           backgroundColor: Colors.transparent,
                           textColor: context.colorExtension.textPrimary,
-                          text: "Cancel",
+                          text: context.localizations.cancel,
 
                           onPressed: () => Get.back(),
                         ),
@@ -134,191 +140,47 @@ class _MainScaffoldState extends State<MainScaffold> {
         color: context.colorScheme.surface,
         notchMargin: 8.0,
         shape: const CircularNotchedRectangle(),
-        child: Row(
-          mainAxisAlignment: .spaceAround,
-          children: [
-            NavItem(
-              currentIndex: _currentIndex,
-              navIndex: 0,
-              label: 'Home',
-              iconInactive: FontAwesomeIcons.house,
-              iconActive: FontAwesomeIcons.solidHouse,
-              onTap: () {
-                setState(() => _currentIndex = 0);
-              },
-            ),
-            NavItem(
-              currentIndex: _currentIndex,
-              navIndex: 1,
-              label: 'Wallet',
-              iconInactive: FontAwesomeIcons.wallet,
-              onTap: () => setState(() => _currentIndex = 1),
-            ),
-            const SizedBox(width: 50),
-            NavItem(
-              currentIndex: _currentIndex,
-              navIndex: 2,
-              label: 'Reports',
-              iconInactive: FontAwesomeIcons.clipboard,
-              iconActive: FontAwesomeIcons.solidClipboard,
-              onTap: () => setState(() => _currentIndex = 2),
-            ),
-            NavItem(
-              currentIndex: _currentIndex,
-              navIndex: 3,
-              label: 'Settings',
-              iconInactive: FontAwesomeIcons.gear,
-              onTap: () => setState(() => _currentIndex = 3),
-            ),
-          ],
+        child: Obx(
+          () => Row(
+            mainAxisAlignment: .spaceAround,
+            children: [
+              NavItem(
+                currentIndex: _shellController.currentIndex,
+                navIndex: 0,
+                label: context.localizations.bottomHome,
+                iconInactive: FontAwesomeIcons.house,
+                iconActive: FontAwesomeIcons.solidHouse,
+                onTap: () {
+                  _shellController.changeIndex(0);
+                },
+              ),
+              NavItem(
+                currentIndex: _shellController.currentIndex,
+                navIndex: 1,
+                label: context.localizations.bottomWallet,
+                iconInactive: FontAwesomeIcons.wallet,
+                onTap: () => _shellController.changeIndex(1),
+              ),
+              const SizedBox(width: 40),
+              NavItem(
+                currentIndex: _shellController.currentIndex,
+                navIndex: 2,
+                label: context.localizations.bottomReports,
+                iconInactive: FontAwesomeIcons.clipboard,
+                iconActive: FontAwesomeIcons.solidClipboard,
+                onTap: () => _shellController.changeIndex(2),
+              ),
+              NavItem(
+                currentIndex: _shellController.currentIndex,
+                navIndex: 3,
+                label: context.localizations.bottomSettings,
+                iconInactive: FontAwesomeIcons.gear,
+                onTap: () => _shellController.changeIndex(3),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
-// class MainScaffold extends StatelessWidget {
-//   const MainScaffold({super.key, required this.navigationShell});
-//   final StatefulNavigationShell navigationShell;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: navigationShell,
-//       floatingActionButton: Container(
-//         width: 55,
-//         height: 55,
-//         decoration: BoxDecoration(
-//           gradient: LinearGradient(
-//             begin: .topCenter,
-//             end: .bottomCenter,
-//             colors: [AppColors.primary, AppColors.gradientPrimaryStart],
-//           ),
-//           borderRadius: BorderRadius.circular(BorderRadiusScale.lg),
-//           border: Border.all(
-//             color:
-//                 context.colorExtension.outlinedBorder ??
-//                 AppColors.outlinedBorderLight,
-//           ),
-//         ),
-//         child: Material(
-//           color: Colors.transparent,
-//           child: InkWell(
-//             onTap: () {
-//               showModalBottomSheet(
-//                 context: context,
-//                 backgroundColor: context.colorScheme.surface,
-
-//                 builder: (context) {
-//                   return Container(
-//                     width: .infinity,
-//                     padding: .only(
-//                       top: PaddingScale.xl,
-//                       bottom: PaddingScale.xl * 2,
-//                       left: PaddingScale.md,
-//                       right: PaddingScale.md,
-//                     ),
-//                     child: Column(
-//                       mainAxisSize: .min,
-//                       children: [
-//                         const SizedBox(height: SpacingScale.md),
-//                         InkWell(
-//                           borderRadius: BorderRadius.circular(
-//                             BorderRadiusScale.sm,
-//                           ),
-//                           onTap: () {
-//                             context.push('/add-transaction');
-//                             context.pop();
-//                           },
-//                           child: Padding(
-//                             padding: .all(PaddingScale.md),
-//                             child: Row(
-//                               children: [
-//                                 Icon(
-//                                   FontAwesomeIcons.moneyBills,
-//                                   size: IconSizeScale.lg,
-//                                   color: AppColors.primary,
-//                                 ),
-//                                 const SizedBox(width: SpacingScale.xl),
-//                                 Column(
-//                                   crossAxisAlignment: .start,
-//                                   children: [
-//                                     Text(
-//                                       "Add Transaction",
-//                                       style: context.textTheme.titleSmall,
-//                                     ),
-//                                     Text(
-//                                       "You can note your expanses or income.",
-//                                       style: context.textTheme.labelMedium,
-//                                     ),
-//                                   ],
-//                                 ),
-//                               ],
-//                             ),
-//                           ),
-//                         ),
-//                         const SizedBox(height: SpacingScale.lg),
-
-//                         ButtonSecondary(
-//                           backgroundColor: Colors.transparent,
-//                           textColor: context.colorExtension.textPrimary,
-//                           text: "Cancel",
-
-//                           onPressed: () => context.pop(),
-//                         ),
-//                       ],
-//                     ),
-//                   );
-//                 },
-//               );
-//             },
-//             borderRadius: BorderRadius.circular(BorderRadiusScale.lg),
-//             child: Icon(
-//               FontAwesomeIcons.plus,
-//               color: context.colorScheme.onPrimary,
-//               size: IconSizeScale.md,
-//             ),
-//           ),
-//         ),
-//       ),
-//       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-//       bottomNavigationBar: BottomAppBar(
-//         color: context.colorScheme.surface,
-//         notchMargin: 8.0,
-//         shape: const CircularNotchedRectangle(),
-//         child: Row(
-//           mainAxisAlignment: .spaceAround,
-//           children: [
-//             NavItem(
-//               navigationShell: navigationShell,
-//               index: 0,
-//               label: 'Home',
-//               iconInactive: FontAwesomeIcons.house,
-//               iconActive: FontAwesomeIcons.solidHouse,
-//             ),
-//             NavItem(
-//               navigationShell: navigationShell,
-//               index: 1,
-//               label: 'Wallet',
-//               iconInactive: FontAwesomeIcons.wallet,
-//             ),
-//             const SizedBox(width: 50),
-//             NavItem(
-//               navigationShell: navigationShell,
-//               index: 2,
-//               label: 'Reports',
-//               iconInactive: FontAwesomeIcons.clipboard,
-//               iconActive: FontAwesomeIcons.solidClipboard,
-//             ),
-//             NavItem(
-//               navigationShell: navigationShell,
-//               index: 3,
-//               label: 'Settings',
-//               iconInactive: FontAwesomeIcons.gear,
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

@@ -1,5 +1,5 @@
 import 'package:safuku/core/utils/errors/failures.dart';
-import 'package:safuku/utils/logger.dart';
+import 'package:safuku/core/utils/logger.dart';
 import 'package:sqflite/sqflite.dart';
 
 class FailureMapper {
@@ -17,6 +17,6 @@ class FailureMapper {
       return DatabaseFailure(message: 'Database error occurred');
     }
 
-    return UnknownFailure();
+    return UnknownFailure(message: e.toString());
   }
 }

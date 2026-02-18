@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:safuku/bindings/main_bindings.dart';
 import 'package:safuku/main_scaffold.dart';
-import 'package:safuku/middleware/PersonalizationMiddleware.dart';
+import 'package:safuku/middleware/personalization_middleware.dart';
 import 'package:safuku/ui/onboard/screens/onboard_currency_screen.dart';
 import 'package:safuku/ui/onboard/screens/onboard_language_screen.dart';
 import 'package:safuku/ui/reports/screens/report_screen.dart';
@@ -17,12 +17,12 @@ import '../ui/transactions/bindings/transaction_binding.dart';
 final routerPage = [
   // Public roues
   GetPage(name: '/onboard-language', page: () => const OnboardLanguageScreen()),
-  GetPage(name: '/onboard-currency', page: () => const OnboardCurrencyScreen()),
+  GetPage(name: '/onboard-currency', page: () => OnboardCurrencyScreen()),
 
   // Main app shell with bottom nav
   GetPage(
     name: '/',
-    page: () => const MainScaffold(),
+    page: () => MainScaffold(),
     binding: MainBinding(),
     middlewares: [PersonalizationMiddleware()],
   ),

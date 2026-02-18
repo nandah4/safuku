@@ -1,42 +1,18 @@
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/state_manager.dart';
-import 'package:safuku/domain/repositories/personalization_repository.dart';
+import 'package:safuku/ui/core/controllers/personalization_controller.dart';
 import 'package:safuku/ui/core/themes/app_colors.dart';
 import 'package:safuku/ui/core/themes/app_dimens.dart';
 import 'package:safuku/ui/core/themes/extensions/theme_extension.dart';
 import 'package:safuku/ui/core/ui/button_primary.dart';
 import 'package:flutter/material.dart';
-import 'package:currency_picker/currency_picker.dart';
+import 'package:safuku/ui/core/ui/currency_picker.dart';
 
-class OnboardCurrencyScreen extends StatefulWidget {
-  const OnboardCurrencyScreen({super.key});
+class OnboardCurrencyScreen extends StatelessWidget {
+  OnboardCurrencyScreen({super.key});
 
-  @override
-  State<OnboardCurrencyScreen> createState() => _OnboardCurrencyScreenState();
-}
-
-class _OnboardCurrencyScreenState extends State<OnboardCurrencyScreen> {
-  Currency? _selectedCurrency = Currency(
-    code: 'IDR',
-    name: 'Indonesia',
-    symbol: 'Rp',
-    decimalDigits: 2,
-    decimalSeparator: ',',
-    thousandsSeparator: '.',
-    flag: '🇮🇩',
-    namePlural: 'Indonesia',
-    number: 123456789,
-    spaceBetweenAmountAndSymbol: true,
-    symbolOnLeft: true,
-  );
-
-  final PersonalizationRepository _personalizationRepository = Get.find();
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  final PersonalizationController _personalizationController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +56,7 @@ class _OnboardCurrencyScreenState extends State<OnboardCurrencyScreen> {
                         children: [
                           Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: SpacingScale.md,
+                              horizontal: SpacingScale.xl,
                             ),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
@@ -96,14 +72,18 @@ class _OnboardCurrencyScreenState extends State<OnboardCurrencyScreen> {
                             ),
                             child: Row(
                               children: [
-                                Text(
-                                  _selectedCurrency?.symbol ?? 'Rp',
-                                  style: context.textTheme.labelLarge,
-                                ),
-                                const SizedBox(width: SpacingScale.sm),
-                                Text(
-                                  _selectedCurrency?.code ?? 'IDR',
-                                  style: context.textTheme.labelLarge,
+                                Obx(
+                                  () => Text(
+                                    _personalizationController
+                                                .currencySymbol
+                                                .value ==
+                                            ''
+                                        ? '...'
+                                        : _personalizationController
+                                              .currencySymbol
+                                              .value,
+                                    style: context.textTheme.labelLarge,
+                                  ),
                                 ),
                               ],
                             ),
@@ -113,56 +93,11 @@ class _OnboardCurrencyScreenState extends State<OnboardCurrencyScreen> {
                             child: ButtonPrimary(
                               isDisabled: false,
                               onPressed: () {
-                                showCurrencyPicker(
-                                  context: context,
-                                  showFlag: true,
-                                  showCurrencyName: true,
-                                  showCurrencyCode: true,
-                                  theme: CurrencyPickerThemeData(
-                                    backgroundColor:
-                                        context.colorScheme.surface,
-                                    titleTextStyle:
-                                        context.textTheme.labelLarge,
-                                    flagSize: IconSizeScale.md * 2,
-                                    inputDecoration: InputDecoration(
-                                      fillColor: context.colorExtension.bgCard,
-                                      filled: true,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          BorderRadiusScale.sm,
-                                        ),
-                                        borderSide: BorderSide(
-                                          color:
-                                              context
-                                                  .colorExtension
-                                                  .outlinedBorder ??
-                                              AppColors.outlinedBorderDark,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          BorderRadiusScale.sm,
-                                        ),
-                                        borderSide: BorderSide(
-                                          color: AppColors.primary,
-                                        ),
-                                      ),
-                                      prefixIcon: Icon(
-                                        Icons.search,
-                                        color: AppColors.primary,
-                                      ),
-                                      hintText: context
-                                          .localizations
-                                          .hintTextSearchCurrency,
-                                      hintStyle: context.textTheme.labelLarge,
-                                    ),
-                                  ),
-                                  onSelect: (Currency currency) {
-                                    setState(() {
-                                      _selectedCurrency = currency;
-                                    });
-                                  },
-                                );
+                                currencyPicker(context, (currency) {
+                                  _personalizationController.setCurrency(
+                                    currency.symbol,
+                                  );
+                                });
                               },
                               text: context.localizations.selectCurrencyButton,
                             ),
@@ -174,20 +109,14 @@ class _OnboardCurrencyScreenState extends State<OnboardCurrencyScreen> {
                 ),
               ),
               ButtonPrimary(
-                isDisabled: _selectedCurrency == null,
+                isDisabled:
+                    _personalizationController.currencySymbol.value == '',
                 text: context.localizations.continueButton,
                 onPressed: () {
-                  if (_selectedCurrency != null) {
-                    _personalizationRepository.setString(
-                      key: 'currency',
-                      value: _selectedCurrency!.symbol,
+                  if (_personalizationController.currencySymbol.value != '') {
+                    _personalizationController.setCurrency(
+                      _personalizationController.currencySymbol.value,
                     );
-
-                    // print(_selectedCurrency!.name);
-                    // print(_selectedCurrency!.code);
-                    // print(_selectedCurrency!.symbol);
-                    // print(_selectedCurrency!.flag);
-                    // print(_selectedCurrency!.namePlural);
 
                     Get.offAllNamed('/');
                   }

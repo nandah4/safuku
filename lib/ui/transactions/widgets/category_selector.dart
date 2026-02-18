@@ -31,7 +31,10 @@ class CategorySelector extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: PaddingScale.lg),
-          child: Text("Category", style: context.textTheme.titleSmall),
+          child: Text(
+            context.localizations.category,
+            style: context.textTheme.titleSmall,
+          ),
         ),
         const SizedBox(height: SpacingScale.sm),
         Obx(() {
@@ -42,14 +45,17 @@ class CategorySelector extends StatelessWidget {
           if (categories.isEmpty) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: PaddingScale.lg),
-              child: _addCategoryButton(context),
+              child: SizedBox(
+                width: 60,
+                height: 50,
+                child: _addCategoryButton(context),
+              ),
             );
           }
 
           final visibleCount = categories.length > _maxVisibleCategories
-              ? _maxVisibleCategories +
-                    1 // +1 for the add button
-              : categories.length;
+              ? _maxVisibleCategories + 1
+              : categories.length + 1;
 
           return SizedBox(
             height: 50,
@@ -57,11 +63,11 @@ class CategorySelector extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: PaddingScale.lg),
               scrollDirection: Axis.horizontal,
               itemCount: visibleCount,
-              separatorBuilder: (_, __) =>
+              separatorBuilder: (_, _) =>
                   const SizedBox(width: SpacingScale.md),
               itemBuilder: (context, index) {
                 // Show add button as the last item
-                if (index >= _maxVisibleCategories) {
+                if (index == visibleCount - 1) {
                   return _addCategoryButton(context);
                 }
 

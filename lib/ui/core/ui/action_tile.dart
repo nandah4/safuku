@@ -4,14 +4,14 @@ import 'package:safuku/ui/core/themes/app_dimens.dart';
 import 'package:safuku/ui/core/themes/extensions/theme_extension.dart';
 
 class ActionTile extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final String label;
   final IconData? icon;
   final Color? iconColor;
   final Widget? trailing;
   const ActionTile({
     super.key,
-    required this.onTap,
+    this.onTap,
     required this.label,
     this.icon,
     this.iconColor,
@@ -40,7 +40,6 @@ class ActionTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Make sure the icon is using from FontAwesomeIcons
             Icon(
               icon ?? Icons.settings,
               size: IconSizeScale.sm,

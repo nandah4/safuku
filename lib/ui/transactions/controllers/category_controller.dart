@@ -3,20 +3,22 @@ import 'package:flutter/widgets.dart';
 import '../../../domain/repositories/category_repository.dart';
 import '../../../domain/entities/category.dart';
 import '../../../core/utils/errors/failures.dart';
-import '../../../utils/logger.dart';
+import '../../../core/utils/logger.dart';
 import 'package:get/get.dart';
 
 import '../../core/utils/snackbar_helper.dart';
 
 class CategoryController extends GetxController {
-  late final CategoryRepository _categoryRepository;
+  final CategoryRepository _categoryRepository;
   late final GlobalKey<FormState> formKey;
   late TextEditingController categoryNameController;
+
+  CategoryController({required CategoryRepository categoryRepository})
+    : _categoryRepository = categoryRepository;
 
   @override
   void onInit() {
     super.onInit();
-    _categoryRepository = Get.find<CategoryRepository>();
     formKey = GlobalKey<FormState>();
     categoryNameController = TextEditingController();
     getCategories();

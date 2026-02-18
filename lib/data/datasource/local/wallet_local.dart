@@ -1,8 +1,8 @@
 import 'package:safuku/config/database/database_helper.dart';
 import 'package:safuku/data/models/wallet.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:safuku/utils/logger.dart';
-import 'package:safuku/core/utils/errors/exception.dart' as failure;
+import 'package:safuku/core/utils/logger.dart';
+import 'package:safuku/core/utils/errors/exception.dart' as exc;
 
 class WalletDataSource {
   final DatabaseHelper db;
@@ -11,23 +11,36 @@ class WalletDataSource {
   WalletDataSource({required this.db});
 
   Future<int> createWallet(Wallet wallet) async {
-    final database = await db.database;
-
-    AppLogger.i(" DataSource : Wallet created successfully ${wallet.toMap()}");
-
-    return await database.insert(tableName, wallet.toMap());
+    try {
+      final database = await db.database;
+      final result = await database.insert(tableName, wallet.toMap());
+      AppLogger.i(
+        " DataSource : Wallet created successfully ${wallet.toMap()}",
+      );
+      return result;
+    } catch (e) {
+      AppLogger.e(" DataSource : Wallet creation failed $e");
+      throw exc.DatabaseException(e.toString());
+    }
   }
 
   Future<int> updateWallet(Wallet wallet) async {
-    final database = await db.database;
-    AppLogger.i(" DataSource : Wallet updated successfully ${wallet.toMap()}");
-
-    return await database.update(
-      tableName,
-      wallet.toMap(),
-      where: 'id = ?',
-      whereArgs: [wallet.id],
-    );
+    try {
+      final database = await db.database;
+      final result = await database.update(
+        tableName,
+        wallet.toMap(),
+        where: 'id = ?',
+        whereArgs: [wallet.id],
+      );
+      AppLogger.i(
+        " DataSource : Wallet updated successfully ${wallet.toMap()}",
+      );
+      return result;
+    } catch (e) {
+      AppLogger.e(" DataSource : Wallet update failed $e");
+      throw exc.DatabaseException(e.toString());
+    }
   }
 
   Future<int> updateSaldoWithTxn(
@@ -49,9 +62,9 @@ class WalletDataSource {
       AppLogger.e(" Local Data Source : Saldo updated failed $e");
       switch (e) {
         case DatabaseException _:
-          throw failure.DatabaseException();
+          throw exc.DatabaseException();
         default:
-          throw failure.UnknownException();
+          throw exc.UnknownException();
       }
     }
   }
@@ -66,7 +79,7 @@ class WalletDataSource {
       );
 
       if (result.isEmpty) {
-        throw failure.DatabaseException('Wallet not found with id: $walletId');
+        throw exc.DatabaseException('Wallet not found with id: $walletId');
       }
 
       return result.first['saldo'] as int;
@@ -77,20 +90,31 @@ class WalletDataSource {
   }
 
   Future<int> getTotalSaldo() async {
-    final database = await db.database;
-    final result = await database.rawQuery(
-      'SELECT COALESCE(SUM(saldo), 0) as total FROM $tableName',
-    );
-    return result.first['total'] as int;
+    try {
+      final database = await db.database;
+      final result = await database.rawQuery(
+        'SELECT COALESCE(SUM(saldo), 0) as total FROM $tableName',
+      );
+      return result.first['total'] as int;
+    } catch (e) {
+      AppLogger.e(" DataSource : Get total saldo failed $e");
+      throw exc.DatabaseException(e.toString());
+    }
   }
 
   Future<List<Wallet>> getAllWallets() async {
-    final database = await db.database;
-    final result = await database.query(tableName, orderBy: 'created_at DESC');
-
-    AppLogger.i(" DataSource : Wallet load successfully $result");
-
-    return result.map((data) => Wallet.fromMap(data)).toList();
+    try {
+      final database = await db.database;
+      final result = await database.query(
+        tableName,
+        orderBy: 'created_at DESC',
+      );
+      AppLogger.i(" DataSource : Wallet load successfully $result");
+      return result.map((data) => Wallet.fromMap(data)).toList();
+    } catch (e) {
+      AppLogger.e(" DataSource : Wallet load failed $e");
+      throw exc.DatabaseException(e.toString());
+    }
   }
 
   Future<void> deleteWallet(int id) async {
@@ -102,7 +126,7 @@ class WalletDataSource {
     } catch (e) {
       if (e is DatabaseException &&
           e.toString().contains('FOREIGN KEY constraint failed')) {
-        throw failure.ConstraintException(
+        throw exc.ConstraintException(
           'Cannot delete wallet with existing transactions',
         );
       }

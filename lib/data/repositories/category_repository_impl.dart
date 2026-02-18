@@ -5,7 +5,7 @@ import '../mapper/category_mapper.dart';
 import '../../domain/entities/category.dart';
 import '../../domain/repositories/category_repository.dart';
 import '../datasource/local/category_local.dart';
-import '../../utils/logger.dart';
+import '../../core/utils/logger.dart';
 import '../../core/utils/errors/exception.dart' as failure;
 
 class CategoryRepositoryImpl implements CategoryRepository {

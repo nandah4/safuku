@@ -1,3 +1,5 @@
+import 'package:safuku/l10n/app_localizations.dart';
+
 class AmountValidator {
   /// Convert string amount to int
   /// Example: "100.000,00" -> 100000000
@@ -10,12 +12,12 @@ class AmountValidator {
 
   /// Validate amount
   /// Return null if valid, otherwise return error message
-  static String? validateAmount(String value) {
-    if (value.isEmpty) return "Amount is required";
+  static String? validateAmount(String value, AppLocalizations localizations) {
+    if (value.isEmpty) return localizations.amountRequired;
 
     final amountAfterFormat = parseAmount(value);
-    if (amountAfterFormat == null) return "Invalid amount";
-    if (amountAfterFormat <= 0) return "Amount must be greater than 0";
+    if (amountAfterFormat == null) return localizations.amountInvalid;
+    if (amountAfterFormat <= 0) return localizations.amountMustBePositive;
 
     return null;
   }

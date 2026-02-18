@@ -9,7 +9,7 @@
     },
     "changeLanguageAnytime": "設定でいつでも変更できます。",
     "@changeLanguageAnytime": {
-        "description": "Description for language selection screen"
+        "description": "Title for language selection screen"
     },
     "chooseCurrency": "通貨を選択",
     "@chooseCurrency": {
@@ -17,7 +17,7 @@
     },
     "changeCurrencyAnytime": "これはすべての取引に使用されます。",
     "@changeCurrencyAnytime": {
-        "description": "Description for currency selection screen"
+        "description": "Title for currency selection screen"
     },
     "selectCurrencyButton": "通貨を選択",
     "@selectCurrencyButton": {
@@ -29,7 +29,7 @@
     },
     "continueButton": "次へ",
     "@continueButton": {
-        "description": "Button for language selection screen"
+        "description": "Title for language selection screen"
     },
     "labelIncome": "収入",
     "@labelIncome": {
@@ -47,7 +47,7 @@
     "@recentTransaction": {
         "description": "Title for recent transaction"
     },
-    "seeAll": "すべて表示",
+    "seeAll": "すべて見る",
     "@seeAll": {
         "description": "Label for see all"
     },
@@ -59,7 +59,7 @@
     "@wallet": {
         "description": "Title for wallet"
     },
-    "totalAmount": "総額",
+    "totalAmount": "合計金額",
     "@totalAmount": {
         "description": "Label for total amount"
     },
@@ -87,7 +87,7 @@
     "@walletName": {
         "description": "Label for wallet name"
     },
-    "walletColor": "ウォレットの色 (任意)",
+    "walletColor": "ウォレットの色（任意）",
     "@walletColor": {
         "description": "Label for wallet color"
     },
@@ -102,5 +102,288 @@
     "save": "保存",
     "@save": {
         "description": "Button for save"
+    },
+    "delete": "削除",
+    "@delete": {
+        "description": "Button for delete"
+    },
+    "close": "閉じる",
+    "@close": {
+        "description": "Button for close"
+    },
+    "back": "戻る",
+    "@back": {
+        "description": "Button for back"
+    },
+    "addTransaction": "取引を追加",
+    "@addTransaction": {
+        "description": "Title for add transaction screen"
+    },
+    "transactionDetail": "取引詳細",
+    "@transactionDetail": {
+        "description": "Title for transaction detail screen"
+    },
+    "title": "タイトル",
+    "@title": {
+        "description": "Label for title field"
+    },
+    "notes": "メモ",
+    "@notes": {
+        "description": "Label for notes field"
+    },
+    "notesOptional": "メモ（任意）",
+    "@notesOptional": {
+        "description": "Label for optional notes field"
+    },
+    "writeNotesHere": "ここにメモを書く",
+    "@writeNotesHere": {
+        "description": "Placeholder for notes"
+    },
+    "date": "日付",
+    "@date": {
+        "description": "Label for date field"
+    },
+    "deleteTransactionConfirm": "本当にこの取引を削除しますか？",
+    "@deleteTransactionConfirm": {
+        "description": "Confirmation message for deleting transaction"
+    },
+    "history": "履歴",
+    "@history": {
+        "description": "Title for history tab"
+    },
+    "spendingBreakdown": "支出の内訳",
+    "@spendingBreakdown": {
+        "description": "Title for spending breakdown section"
+    },
+    "weeklyOverview": "週間概要",
+    "@weeklyOverview": {
+        "description": "Title for weekly overview section"
+    },
+    "noDataThisMonth": "今月のデータはありません",
+    "@noDataThisMonth": {
+        "description": "Message for empty data in month"
+    },
+    "noTransactionsYet": "取引はまだありません",
+    "@noTransactionsYet": {
+        "description": "Message for empty transactions list"
+    },
+    "total": "合計",
+    "@total": {
+        "description": "Label for total"
+    },
+    "averagePerWeek": "平均 / 週",
+    "@averagePerWeek": {
+        "description": "Label for average per week"
+    },
+    "highest": "最高",
+    "@highest": {
+        "description": "Label for highest value"
+    },
+    "transactions": "取引",
+    "@transactions": {
+        "description": "Label for transactions count"
+    },
+    "spending": "支出",
+    "@spending": {
+        "description": "Label for spending tab"
+    },
+    "weekly": "週間",
+    "@weekly": {
+        "description": "Label for weekly tab"
+    },
+    "emptyHistory": "空",
+    "@emptyHistory": {
+        "description": "Message for empty history"
+    },
+    "settings": "設定",
+    "@settings": {
+        "description": "Title for settings screen"
+    },
+    "backupRestore": "バックアップと復元",
+    "@backupRestore": {
+        "description": "Label for backup and restore option"
+    },
+    "removeData": "データを削除",
+    "@removeData": {
+        "description": "Label for remove data option"
+    },
+    "currency": "通貨",
+    "@currency": {
+        "description": "Label for currency setting"
+    },
+    "category": "カテゴリー",
+    "@category": {
+        "description": "Category title"
+    },
+    "categoryHint": "カテゴリー名",
+    "@categoryHint": {
+        "description": "Hint for category field"
+    },
+    "buttonCreateCategory": "カテゴリーを作成",
+    "@buttonCreateCategory": {
+        "description": "Button for create category"
+    },
+    "allCategories": "すべてのカテゴリー",
+    "@allCategories": {
+        "description": "Title for All Categories"
+    },
+    "valCategoryRequired": "カテゴリー名は必須です",
+    "@valCategoryRequired": {
+        "description": "Validation category required"
+    },
+    "valCategorySpecialChars": "カテゴリー名に特殊文字を含めることはできません。",
+    "@valCategorySpecialChars": {
+        "description": "Validation category special characters"
+    },
+    "walletNameRequired": "ウォレット名は必須です。",
+    "@walletNameRequired": {
+        "description": "Validation error for wallet name"
+    },
+    "walletNameInvalid": "ウォレット名は文字と数字のみ使用できます。",
+    "@walletNameInvalid": {
+        "description": "Validation error for wallet name format"
+    },
+    "fieldRequired": "{label} は必須です。",
+    "@fieldRequired": {
+        "description": "Generic validation error with parameter",
+        "placeholders": {
+            "label": {}
+        }
+    },
+    "transactionTypeRequired": "取引タイプは必須です",
+    "@transactionTypeRequired": {
+        "description": "Validation error for transaction type"
+    },
+    "walletRequired": "ウォレットは必須です",
+    "@walletRequired": {
+        "description": "Validation error for wallet selection"
+    },
+    "categoryRequired": "カテゴリーは必須です",
+    "@categoryRequired": {
+        "description": "Validation error for category selection"
+    },
+    "amountRequired": "金額は必須です",
+    "@amountRequired": {
+        "description": "Validation error - amount required"
+    },
+    "amountInvalid": "無効な金額です",
+    "@amountInvalid": {
+        "description": "Validation error for amount"
+    },
+    "amountMustBePositive": "金額は0より大きい必要があります",
+    "@amountMustBePositive": {
+        "description": "Validation error for amount greater than 0"
+    },
+    "transactionDataEmpty": "取引データが空です",
+    "@transactionDataEmpty": {
+        "description": "Error message for empty transaction data"
+    },
+    "errorFetchWallets": "ウォレットの取得に失敗しました",
+    "@errorFetchWallets": {
+        "description": "Error message for fetching wallets"
+    },
+    "errorCreateTransaction": "取引の作成に失敗しました",
+    "@errorCreateTransaction": {
+        "description": "Error message for creating transaction"
+    },
+    "errorGeneric": "エラー",
+    "@errorGeneric": {
+        "description": "Generic error title"
+    },
+    "transactionHistory": "取引履歴",
+    "@transactionHistory": {
+        "description": "Title for transaction history"
+    },
+    "statistic": "統計",
+    "@statistic": {
+        "description": "Title for statistic screen"
+    },
+    "week": "週",
+    "@week": {
+        "description": "Label for week"
+    },
+    "weekShort": "週",
+    "@weekShort": {
+        "description": "Short label for week"
+    },
+    "deleteThis": "これを削除",
+    "@deleteThis": {
+        "description": "Delete this"
+    },
+    "deleteGeneralConfirm": "本当にこれを削除しますか？",
+    "@deleteGeneralConfirm": {
+        "description": "Confirmation message for deleting wallet"
+    },
+    "deleteWalletConfirm": "本当にこのウォレットを削除しますか？",
+    "@deleteWalletConfirm": {
+        "description": "Confirmation message for deleting wallet"
+    },
+    "bottomHome": "ホーム",
+    "@bottomHome": {
+        "description": "Bottom navigation title for home"
+    },
+    "bottomWallet": "ウォレット",
+    "@bottomWallet": {
+        "description": "Bottom navigation title for wallet"
+    },
+    "bottomReports": "レポート",
+    "@bottomReports": {
+        "description": "Bottom navigation title for reports"
+    },
+    "bottomSettings": "設定",
+    "@bottomSettings": {
+        "description": "Bottom navigation title for settings"
+    },
+    "youCanRecordExpensesAndIncome": "支出と収入を記録できます",
+    "@youCanRecordExpensesAndIncome": {
+        "description": "You can record expenses and income"
+    },
+    "transactionType": "取引タイプ",
+    "@transactionType": {
+        "description": "Transaction Type"
+    },
+    "allTime": "全期間",
+    "@allTime": {
+        "description": "All time label"
+    },
+    "somethingWentWrong": "問題が発生しました",
+    "@somethingWentWrong": {
+        "description": "Generic error message"
+    },
+    "walletEmpty": "ウォレットが見つかりません",
+    "@walletEmpty": {
+        "description": "No wallets found"
+    },
+    "restore": "復元",
+    "@restore": {
+        "description": "Restore label"
+    },
+    "backup": "バックアップ",
+    "@backup": {
+        "description": "Backup label"
+    },
+    "backupSuccess": "バックアップが完了しました",
+    "@backupSuccess": {
+        "description": "Backup success message"
+    },
+    "restoreSuccess": "復元が完了しました",
+    "@restoreSuccess": {
+        "description": "Restore success message"
+    },
+    "invalidFileFormat": "無効なファイル形式",
+    "@invalidFileFormat": {
+        "description": "Invalid file format error"
+    },
+    "data": "データ",
+    "@data": {
+        "description": "Data label"
+    },
+    "dataDescription": "データは端末にローカル保存されます。必要に応じてファイルにエクスポートしたり、インポートし直すことができます。",
+    "@dataDescription": {
+        "description": "Data description"
+    },
+    "backupRestoreDescription": "定期的にバックアップを行うか、古いデータを復元してください。",
+    "@backupRestoreDescription": {
+        "description": "Description for backup and restore section"
     }
 }

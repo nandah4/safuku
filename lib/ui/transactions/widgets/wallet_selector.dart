@@ -22,7 +22,10 @@ class WalletSelector extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: PaddingScale.lg),
-          child: Text("Wallet", style: context.textTheme.titleSmall),
+          child: Text(
+            context.localizations.wallet,
+            style: context.textTheme.titleSmall,
+          ),
         ),
         const SizedBox(height: SpacingScale.sm),
         Obx(() {
@@ -46,7 +49,7 @@ class WalletSelector extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: PaddingScale.lg),
               scrollDirection: Axis.horizontal,
               itemCount: wallets.length,
-              separatorBuilder: (_, __) =>
+              separatorBuilder: (_, _) =>
                   const SizedBox(width: SpacingScale.md),
               itemBuilder: (context, index) {
                 final wallet = wallets[index];

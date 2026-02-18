@@ -4,22 +4,32 @@ import 'package:get/get.dart';
 import 'package:safuku/core/utils/errors/failures.dart';
 import 'package:safuku/ui/core/utils/app_event_bus.dart';
 import 'package:safuku/ui/core/utils/snackbar_helper.dart';
-import 'package:safuku/utils/logger.dart';
+import 'package:safuku/core/utils/logger.dart';
 
 import 'package:safuku/domain/entities/wallet.dart';
 import 'package:safuku/domain/repositories/wallet_repository.dart';
 import 'package:safuku/ui/core/themes/app_colors.dart';
-import 'package:safuku/ui/core/utils/formatter.dart';
+import 'package:safuku/ui/core/utils/formatter_interface.dart';
+
 import 'package:safuku/ui/core/utils/amount_validator.dart';
+import 'package:safuku/l10n/app_localizations.dart';
 
 class AddWalletController extends GetxController {
   // Repository
-  late final WalletRepository walletRepository;
+  final WalletRepository walletRepository;
+  final FormatterInterface _formatter;
+  final AppEventBus _eventBus;
 
   // DATA
   final WalletEntity? wallet;
 
-  AddWalletController({this.wallet});
+  AddWalletController({
+    required this.walletRepository,
+    required FormatterInterface formatter,
+    required AppEventBus eventBus,
+    this.wallet,
+  }) : _formatter = formatter,
+       _eventBus = eventBus;
 
   // GLOBAL KEY
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -31,11 +41,10 @@ class AddWalletController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    walletRepository = Get.find<WalletRepository>();
 
     amountController = TextEditingController(
       text: wallet != null
-          ? Get.find<Formatter>().formatAmountWithoutCurrency(wallet!.saldo)
+          ? _formatter.formatAmountWithoutCurrency(wallet!.saldo)
           : "",
     );
 
@@ -82,6 +91,7 @@ class AddWalletController extends GetxController {
     try {
       final amountValidated = AmountValidator.validateAmount(
         amountController.text,
+        AppLocalizations.of(Get.context!)!,
       );
       if (amountValidated != null) {
         amountError.value = amountValidated;
@@ -95,7 +105,7 @@ class AddWalletController extends GetxController {
 
       if (amountResult == null) {
         AppLogger.e("CONTROLLER (FAILED PARSE AMOUNT) : $amountResult");
-        amountError.value = "Invalid amount";
+        amountError.value = AppLocalizations.of(Get.context!)!.amountInvalid;
         return;
       }
 
@@ -118,7 +128,7 @@ class AddWalletController extends GetxController {
           },
           (rows) {
             AppLogger.i("CONTROLLER (SUCCESS UPDATE WALLET)");
-            Get.find<AppEventBus>().emit(AppEvent.walletChanged);
+            _eventBus.emit(AppEvent.walletChanged);
             Get.back();
           },
         );

@@ -1,4 +1,4 @@
-import 'package:flutter/src/widgets/navigator.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:safuku/domain/repositories/personalization_repository.dart';
 

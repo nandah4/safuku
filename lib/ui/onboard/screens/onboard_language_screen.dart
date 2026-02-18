@@ -1,30 +1,12 @@
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-
-import 'package:safuku/domain/repositories/personalization_repository.dart';
+import 'package:safuku/ui/core/controllers/personalization_controller.dart';
 import 'package:safuku/ui/core/themes/app_colors.dart';
 import 'package:safuku/ui/core/themes/app_dimens.dart';
 import 'package:safuku/ui/core/themes/extensions/theme_extension.dart';
 import 'package:safuku/ui/core/ui/button_primary.dart';
 import 'package:flutter/material.dart';
-
-class Language {
-  final String id;
-  final String name;
-  final String flagIcon;
-
-  Language({required this.id, required this.name, required this.flagIcon});
-}
-
-final languageList = [
-  Language(id: 'id', name: 'Indonesia', flagIcon: '🇮🇩'),
-  Language(id: 'en', name: 'English', flagIcon: '🇬🇧'),
-  Language(id: 'ja', name: 'Japanese', flagIcon: '🇯🇵'),
-  // Language(id: 'cn', name: 'China', flagIcon: '🇨🇳'),
-  // Language(id: 'kr', name: 'South Korea', flagIcon: '🇰🇷'),
-  // Language(id: 'ar', name: 'Arab Saudi', flagIcon: '🇸🇦'),
-];
 
 class OnboardLanguageScreen extends StatefulWidget {
   const OnboardLanguageScreen({super.key});
@@ -38,7 +20,7 @@ class _OnboardLanguageScreenState extends State<OnboardLanguageScreen> {
   String? _selectedLanguage;
   bool _isSliverAppBarPinned = false;
 
-  final setLanguage = Get.find<PersonalizationRepository>();
+  final personalizationController = Get.find<PersonalizationController>();
 
   @override
   void initState() {
@@ -123,23 +105,28 @@ class _OnboardLanguageScreenState extends State<OnboardLanguageScreen> {
                 crossAxisSpacing: SpacingScale.xl,
               ),
 
-              itemCount: languageList.length,
+              itemCount: personalizationController.languageList.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
                     setState(() {
-                      _selectedLanguage = languageList[index].id;
+                      _selectedLanguage =
+                          personalizationController.languageList[index].id;
                     });
                   },
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(SpacingScale.lg * 2),
                       border: Border.all(
-                        color: _selectedLanguage == languageList[index].id
+                        color:
+                            _selectedLanguage ==
+                                personalizationController.languageList[index].id
                             ? context.colorScheme.outline
                             : Colors.transparent,
                       ),
-                      gradient: _selectedLanguage == languageList[index].id
+                      gradient:
+                          _selectedLanguage ==
+                              personalizationController.languageList[index].id
                           ? LinearGradient(
                               colors: [
                                 AppColors.gradientPrimaryStart,
@@ -155,7 +142,9 @@ class _OnboardLanguageScreenState extends State<OnboardLanguageScreen> {
                       crossAxisAlignment: .center,
                       children: [
                         Text(
-                          languageList[index].flagIcon,
+                          personalizationController
+                              .languageList[index]
+                              .flagIcon,
                           style: context.textTheme.bodyMedium?.copyWith(
                             height: 1,
                             fontSize: IconSizeScale.xl,
@@ -163,10 +152,14 @@ class _OnboardLanguageScreenState extends State<OnboardLanguageScreen> {
                         ),
                         const SizedBox(height: SpacingScale.sm),
                         Text(
-                          languageList[index].name,
+                          personalizationController.languageList[index].name,
                           textAlign: .center,
                           style: context.textTheme.labelMedium?.copyWith(
-                            color: _selectedLanguage == languageList[index].id
+                            color:
+                                _selectedLanguage ==
+                                    personalizationController
+                                        .languageList[index]
+                                        .id
                                 ? Colors.white
                                 : null,
                           ),
@@ -187,7 +180,7 @@ class _OnboardLanguageScreenState extends State<OnboardLanguageScreen> {
           isDisabled: _selectedLanguage == null,
           onPressed: () {
             if (_selectedLanguage != null) {
-              setLanguage.setString(key: 'language', value: _selectedLanguage!);
+              personalizationController.setLocale(_selectedLanguage!);
               Get.updateLocale(Locale(_selectedLanguage!));
               Get.toNamed('/onboard-currency');
             }

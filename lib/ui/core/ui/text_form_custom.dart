@@ -65,7 +65,7 @@ class TextFormCustom extends StatelessWidget {
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return "$labelText is required.";
+          return context.localizations.fieldRequired(labelText);
         }
         return null;
       },

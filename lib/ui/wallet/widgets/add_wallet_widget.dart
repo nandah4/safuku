@@ -163,10 +163,10 @@ class AddWalletWidget extends StatelessWidget {
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return "Wallet name is required.";
+          return context.localizations.walletNameRequired;
         }
         if (value.contains(RegExp(r'[^a-zA-Z0-9 ]'))) {
-          return "Wallet name can only contain letters and numbers.";
+          return context.localizations.walletNameInvalid;
         }
         return null;
       },

@@ -102,5 +102,284 @@
     "save": "Save",
     "@save": {
         "description": "Button for save"
+    },
+    "close": "Close",
+    "@close": {
+        "description": "Button for close"
+    },
+    "back": "Back",
+    "@back": {
+        "description": "Button for back"
+    },
+    "addTransaction": "Add Transaction",
+    "@addTransaction": {
+        "description": "Title for add transaction screen"
+    },
+    "transactionDetail": "Transaction Detail",
+    "@transactionDetail": {
+        "description": "Title for transaction detail screen"
+    },
+    "title": "Title",
+    "@title": {
+        "description": "Label for title field"
+    },
+    "notes": "Notes",
+    "@notes": {
+        "description": "Label for notes field"
+    },
+    "notesOptional": "Notes (optional)",
+    "@notesOptional": {
+        "description": "Label for optional notes field"
+    },
+    "writeNotesHere": "Write your notes here",
+    "@writeNotesHere": {
+        "description": "Placeholder for notes"
+    },
+    "date": "Date",
+    "@date": {
+        "description": "Label for date field"
+    },
+    "deleteTransactionConfirm": "Are you sure you want to delete this transaction?",
+    "@deleteTransactionConfirm": {
+        "description": "Confirmation message for deleting transaction"
+    },
+    "statistic": "Statistic",
+    "@statistic": {
+        "description": "Title for statistic screen"
+    },
+    "history": "History",
+    "@history": {
+        "description": "Title for history tab"
+    },
+    "spendingBreakdown": "Spending Breakdown",
+    "@spendingBreakdown": {
+        "description": "Title for spending breakdown section"
+    },
+    "weeklyOverview": "Weekly Overview",
+    "@weeklyOverview": {
+        "description": "Title for weekly overview section"
+    },
+    "noDataThisMonth": "No data for this month",
+    "@noDataThisMonth": {
+        "description": "Message for empty data in month"
+    },
+    "noTransactionsYet": "No transactions yet",
+    "@noTransactionsYet": {
+        "description": "Message for empty transactions list"
+    },
+    "total": "Total",
+    "@total": {
+        "description": "Label for total"
+    },
+    "averagePerWeek": "Average / week",
+    "@averagePerWeek": {
+        "description": "Label for average per week"
+    },
+    "highest": "Highest",
+    "@highest": {
+        "description": "Label for highest value"
+    },
+    "transactions": "Transactions",
+    "@transactions": {
+        "description": "Label for transactions count"
+    },
+    "spending": "Spending",
+    "@spending": {
+        "description": "Label for spending tab"
+    },
+    "weekly": "Weekly",
+    "@weekly": {
+        "description": "Label for weekly tab"
+    },
+    "emptyHistory": "Empty",
+    "@emptyHistory": {
+        "description": "Message for empty history"
+    },
+    "settings": "Settings",
+    "@settings": {
+        "description": "Title for settings screen"
+    },
+    "backupRestore": "Backup and restore",
+    "@backupRestore": {
+        "description": "Label for backup and restore option"
+    },
+    "removeData": "Remove Data",
+    "@removeData": {
+        "description": "Label for remove data option"
+    },
+    "currency": "Currency",
+    "@currency": {
+        "description": "Label for currency setting"
+    },
+    "category": "Category",
+    "@category": {
+        "description": "Category title"
+    },
+    "categoryHint": "Category name",
+    "@categoryHint": {
+        "description": "Hint for category field"
+    },
+    "buttonCreateCategory": "Create Category",
+    "@buttonCreateCategory": {
+        "description": "Button for create category"
+    },
+    "allCategories": "All Categories",
+    "@allCategories": {
+        "description": "Title for All Categories"
+    },
+    "valCategoryRequired": "Category name is required",
+    "@valCategoryRequired": {
+        "description": "Validation category required"
+    },
+    "valCategorySpecialChars": "Category name must not contain special characters.",
+    "@valCategorySpecialChars": {
+        "description": "Validation category special characters"
+    },
+    "walletNameRequired": "Wallet name is required.",
+    "@walletNameRequired": {
+        "description": "Validation error for wallet name"
+    },
+    "walletNameInvalid": "Wallet name can only contain letters and numbers.",
+    "@walletNameInvalid": {
+        "description": "Validation error for wallet name format"
+    },
+    "fieldRequired": "{label} is required.",
+    "@fieldRequired": {
+        "description": "Generic validation error with parameter",
+        "placeholders": {
+            "label": {}
+        }
+    },
+    "transactionTypeRequired": "Transaction type is required",
+    "@transactionTypeRequired": {
+        "description": "Validation error for transaction type"
+    },
+    "walletRequired": "Wallet is required",
+    "@walletRequired": {
+        "description": "Validation error for wallet selection"
+    },
+    "categoryRequired": "Category is required",
+    "@categoryRequired": {
+        "description": "Validation error for category selection"
+    },
+    "amountRequired": "Amount is required",
+    "@amountRequired": {
+        "description": "Validation error - amount required"
+    },
+    "amountInvalid": "Invalid amount",
+    "@amountInvalid": {
+        "description": "Validation error for amount"
+    },
+    "amountMustBePositive": "Amount must be greater than 0",
+    "@amountMustBePositive": {
+        "description": "Validation error for amount greater than 0"
+    },
+    "transactionDataEmpty": "Transaction data is empty",
+    "@transactionDataEmpty": {
+        "description": "Error message for empty transaction data"
+    },
+    "errorFetchWallets": "Failed to get wallets",
+    "@errorFetchWallets": {
+        "description": "Error message for fetching wallets"
+    },
+    "errorGeneric": "Error",
+    "@errorGeneric": {
+        "description": "Generic error title"
+    },
+    "transactionHistory": "Transaction History",
+    "@transactionHistory": {
+        "description": "Title for transaction history"
+    },
+    "week": "Week",
+    "@week": {
+        "description": "Label for week"
+    },
+    "weekShort": "W",
+    "@weekShort": {
+        "description": "Short label for week"
+    },
+    "deleteThis": "Delete this",
+    "@deleteThis": {
+        "description": "Delete this"
+    },
+    "deleteGeneralConfirm": "Are you sure you want to delete this?",
+    "@deleteGeneralConfirm": {
+        "description": "Confirmation message for deleting wallet"
+    },
+    "deleteWalletConfirm": "Are you sure you want to delete this wallet?",
+    "@deleteWalletConfirm": {
+        "description": "Confirmation message for deleting wallet"
+    },
+    "bottomHome": "Home",
+    "@bottomHome": {
+        "description": "Bottom navigation title for home"
+    },
+    "bottomWallet": "Wallet",
+    "@bottomWallet": {
+        "description": "Bottom navigation title for wallet"
+    },
+    "bottomReports": "Reports",
+    "@bottomReports": {
+        "description": "Bottom navigation title for reports"
+    },
+    "bottomSettings": "Settings",
+    "@bottomSettings": {
+        "description": "Bottom navigation title for settings"
+    },
+    "youCanRecordExpensesAndIncome": "You can record expenses and income",
+    "@youCanRecordExpensesAndIncome": {
+        "description": "You can record expenses and income"
+    },
+    "transactionType": "Transaction Type",
+    "@transactionType": {
+        "description": "Transaction Type"
+    },
+    "allTime": "All Time",
+    "@allTime": {
+        "description": "All time label"
+    },
+    "somethingWentWrong": "Something went wrong",
+    "@somethingWentWrong": {
+        "description": "Something went wrong"
+    },
+    "walletEmpty": "No wallets found",
+    "@walletEmpty": {
+        "description": "No wallets found"
+    },
+    "restore": "Restore",
+    "@restore": {
+        "description": "Restore label"
+    },
+    "backup": "Backup",
+    "@backup": {
+        "description": "Backup label"
+    },
+    "backupSuccess": "Backup completed successfully",
+    "@backupSuccess": {
+        "description": "Backup success message"
+    },
+    "restoreSuccess": "Restore completed successfully",
+    "@restoreSuccess": {
+        "description": "Restore success message"
+    },
+    "invalidFileFormat": "Invalid file format",
+    "@invalidFileFormat": {
+        "description": "Invalid file format error"
+    },
+    "delete": "Delete",
+    "@delete": {
+        "description": "Delete label"
+    },
+    "data": "Data",
+    "@data": {
+        "description": "Data label"
+    },
+    "dataDescription": "Data is stored locally on your device. You can export it to a file and import it back if needed.",
+    "@dataDescription": {
+        "description": "Data description"
+    },
+    "backupRestoreDescription": "Perform regular backups or restore your old data.",
+    "@backupRestoreDescription": {
+        "description": "Description for backup and restore section"
     }
 }

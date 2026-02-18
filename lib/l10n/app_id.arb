@@ -3,23 +3,23 @@
     "@language": {
         "description": "Title for language selection screen"
     },
-    "chooseLanguage": "Pilih bahasa",
+    "chooseLanguage": "Pilih bahasamu",
     "@chooseLanguage": {
         "description": "Title for language selection screen"
     },
     "changeLanguageAnytime": "Kamu bisa mengubah ini kapan saja di pengaturan.",
     "@changeLanguageAnytime": {
-        "description": "Subtitle explaining language can be changed later"
+        "description": "Title for language selection screen"
     },
-    "chooseCurrency": "Pilih mata uang",
+    "chooseCurrency": "Pilih mata uangmu",
     "@chooseCurrency": {
         "description": "Title for currency selection screen"
     },
-    "changeCurrencyAnytime": "Ini akan digunakan untuk semua transaksi Anda.",
+    "changeCurrencyAnytime": "Ini akan digunakan untuk semua transaksimu.",
     "@changeCurrencyAnytime": {
-        "description": "Description for currency selection screen"
+        "description": "Title for currency selection screen"
     },
-    "selectCurrencyButton": "Pilih mata uang",
+    "selectCurrencyButton": "Pilih Mata Uang",
     "@selectCurrencyButton": {
         "description": "Button for currency selection screen"
     },
@@ -27,9 +27,9 @@
     "@hintTextSearchCurrency": {
         "description": "Hint text for currency search"
     },
-    "continueButton": "Lanjutkan",
+    "continueButton": "Lanjut",
     "@continueButton": {
-        "description": "Continue button text"
+        "description": "Title for language selection screen"
     },
     "labelIncome": "Pemasukan",
     "@labelIncome": {
@@ -43,7 +43,7 @@
     "@labelCurrentBalance": {
         "description": "Label for current balance"
     },
-    "recentTransaction": "Transaksi Terbaru",
+    "recentTransaction": "Transaksi Terakhir",
     "@recentTransaction": {
         "description": "Title for recent transaction"
     },
@@ -51,7 +51,7 @@
     "@seeAll": {
         "description": "Label for see all"
     },
-    "thanLastWeek": "Dibanding Minggu Lalu",
+    "thanLastWeek": "Dari Minggu Lalu",
     "@thanLastWeek": {
         "description": "Label for than last week"
     },
@@ -59,7 +59,7 @@
     "@wallet": {
         "description": "Title for wallet"
     },
-    "totalAmount": "Jumlah Total",
+    "totalAmount": "Total Jumlah",
     "@totalAmount": {
         "description": "Label for total amount"
     },
@@ -67,7 +67,7 @@
     "@addWallet": {
         "description": "Label for add wallet"
     },
-    "updateWallet": "Update Dompet",
+    "updateWallet": "Ubah Dompet",
     "@updateWallet": {
         "description": "Label for update wallet"
     },
@@ -79,7 +79,7 @@
     "@createWalletButton": {
         "description": "Button for create wallet"
     },
-    "updateWalletButton": "Update Dompet",
+    "updateWalletButton": "Simpan Perubahan",
     "@updateWalletButton": {
         "description": "Button for update wallet"
     },
@@ -102,5 +102,288 @@
     "save": "Simpan",
     "@save": {
         "description": "Button for save"
+    },
+    "delete": "Hapus",
+    "@delete": {
+        "description": "Button for delete"
+    },
+    "close": "Tutup",
+    "@close": {
+        "description": "Button for close"
+    },
+    "back": "Kembali",
+    "@back": {
+        "description": "Button for back"
+    },
+    "addTransaction": "Tambah Transaksi",
+    "@addTransaction": {
+        "description": "Title for add transaction screen"
+    },
+    "transactionDetail": "Detail Transaksi",
+    "@transactionDetail": {
+        "description": "Title for transaction detail screen"
+    },
+    "title": "Judul",
+    "@title": {
+        "description": "Label for title field"
+    },
+    "notes": "Catatan",
+    "@notes": {
+        "description": "Label for notes field"
+    },
+    "notesOptional": "Catatan (opsional)",
+    "@notesOptional": {
+        "description": "Label for optional notes field"
+    },
+    "writeNotesHere": "Tulis catatanmu di sini",
+    "@writeNotesHere": {
+        "description": "Placeholder for notes"
+    },
+    "date": "Tanggal",
+    "@date": {
+        "description": "Label for date field"
+    },
+    "deleteTransactionConfirm": "Apakah kamu yakin ingin menghapus transaksi ini?",
+    "@deleteTransactionConfirm": {
+        "description": "Confirmation message for deleting transaction"
+    },
+    "history": "Riwayat",
+    "@history": {
+        "description": "Title for history screen"
+    },
+    "spendingBreakdown": "Rincian Pengeluaran",
+    "@spendingBreakdown": {
+        "description": "Title for spending breakdown section"
+    },
+    "weeklyOverview": "Ringkasan Mingguan",
+    "@weeklyOverview": {
+        "description": "Title for weekly overview section"
+    },
+    "noDataThisMonth": "Tidak ada data bulan ini",
+    "@noDataThisMonth": {
+        "description": "Message for empty data in month"
+    },
+    "noTransactionsYet": "Belum ada transaksi",
+    "@noTransactionsYet": {
+        "description": "Message for empty transactions list"
+    },
+    "total": "Total",
+    "@total": {
+        "description": "Label for total"
+    },
+    "averagePerWeek": "Rata-rata / minggu",
+    "@averagePerWeek": {
+        "description": "Label for average per week"
+    },
+    "highest": "Tertinggi",
+    "@highest": {
+        "description": "Label for highest value"
+    },
+    "transactions": "Transaksi",
+    "@transactions": {
+        "description": "Label for transactions count"
+    },
+    "spending": "Pengeluaran",
+    "@spending": {
+        "description": "Label for spending tab"
+    },
+    "weekly": "Mingguan",
+    "@weekly": {
+        "description": "Label for weekly tab"
+    },
+    "emptyHistory": "Kosong",
+    "@emptyHistory": {
+        "description": "Message for empty history"
+    },
+    "settings": "Pengaturan",
+    "@settings": {
+        "description": "Title for settings screen"
+    },
+    "backupRestore": "Cadangkan dan Pulihkan",
+    "@backupRestore": {
+        "description": "Label for backup and restore option"
+    },
+    "removeData": "Hapus Data",
+    "@removeData": {
+        "description": "Label for remove data option"
+    },
+    "currency": "Mata Uang",
+    "@currency": {
+        "description": "Label for currency setting"
+    },
+    "category": "Kategori",
+    "@category": {
+        "description": "Category title"
+    },
+    "categoryHint": "Nama kategori",
+    "@categoryHint": {
+        "description": "Hint for category field"
+    },
+    "buttonCreateCategory": "Buat Kategori",
+    "@buttonCreateCategory": {
+        "description": "Button for create category"
+    },
+    "allCategories": "Semua Kategori",
+    "@allCategories": {
+        "description": "Title for All Categories"
+    },
+    "valCategoryRequired": "Nama kategori wajib diisi",
+    "@valCategoryRequired": {
+        "description": "Validation category required"
+    },
+    "valCategorySpecialChars": "Nama kategori tidak boleh mengandung karakter khusus.",
+    "@valCategorySpecialChars": {
+        "description": "Validation category special characters"
+    },
+    "walletNameRequired": "Nama dompet wajib diisi.",
+    "@walletNameRequired": {
+        "description": "Validation error for wallet name"
+    },
+    "walletNameInvalid": "Nama dompet hanya boleh berisi huruf dan angka.",
+    "@walletNameInvalid": {
+        "description": "Validation error for wallet name format"
+    },
+    "fieldRequired": "{label} wajib diisi.",
+    "@fieldRequired": {
+        "description": "Generic validation error with parameter",
+        "placeholders": {
+            "label": {}
+        }
+    },
+    "transactionTypeRequired": "Tipe transaksi wajib diisi",
+    "@transactionTypeRequired": {
+        "description": "Validation error for transaction type"
+    },
+    "walletRequired": "Dompet wajib diisi",
+    "@walletRequired": {
+        "description": "Validation error for wallet selection"
+    },
+    "categoryRequired": "Kategori wajib diisi",
+    "@categoryRequired": {
+        "description": "Validation error for category selection"
+    },
+    "amountRequired": "Jumlah wajib diisi",
+    "@amountRequired": {
+        "description": "Validation error - amount required"
+    },
+    "amountInvalid": "Jumlah tidak valid",
+    "@amountInvalid": {
+        "description": "Validation error for amount"
+    },
+    "amountMustBePositive": "Jumlah harus lebih dari 0",
+    "@amountMustBePositive": {
+        "description": "Validation error for amount greater than 0"
+    },
+    "transactionDataEmpty": "Data transaksi kosong",
+    "@transactionDataEmpty": {
+        "description": "Error message for empty transaction data"
+    },
+    "errorFetchWallets": "Gagal mengambil data dompet",
+    "@errorFetchWallets": {
+        "description": "Error message for fetching wallets"
+    },
+    "errorCreateTransaction": "Gagal membuat transaksi",
+    "@errorCreateTransaction": {
+        "description": "Error message for creating transaction"
+    },
+    "errorGeneric": "Kesalahan",
+    "@errorGeneric": {
+        "description": "Generic error title"
+    },
+    "transactionHistory": "Riwayat Transaksi",
+    "@transactionHistory": {
+        "description": "Title for transaction history"
+    },
+    "statistic": "Statistik",
+    "@statistic": {
+        "description": "Title for statistic screen"
+    },
+    "week": "Minggu",
+    "@week": {
+        "description": "Label for week"
+    },
+    "weekShort": "M",
+    "@weekShort": {
+        "description": "Short label for week"
+    },
+    "deleteThis": "Hapus ini",
+    "@deleteThis": {
+        "description": "Delete this"
+    },
+    "deleteGeneralConfirm": "Apakah kamu yakin ingin menghapus ini?",
+    "@deleteGeneralConfirm": {
+        "description": "Confirmation message for deleting wallet"
+    },
+    "deleteWalletConfirm": "Apakah kamu yakin ingin menghapus dompet ini?",
+    "@deleteWalletConfirm": {
+        "description": "Confirmation message for deleting wallet"
+    },
+    "bottomHome": "Beranda",
+    "@bottomHome": {
+        "description": "Bottom navigation title for home"
+    },
+    "bottomWallet": "Dompet",
+    "@bottomWallet": {
+        "description": "Bottom navigation title for wallet"
+    },
+    "bottomReports": "Laporan",
+    "@bottomReports": {
+        "description": "Bottom navigation title for reports"
+    },
+    "bottomSettings": "Pengaturan",
+    "@bottomSettings": {
+        "description": "Bottom navigation title for settings"
+    },
+    "youCanRecordExpensesAndIncome": "Kamu bisa mencatat pengeluaran dan pemasukan",
+    "@youCanRecordExpensesAndIncome": {
+        "description": "You can record expenses and income"
+    },
+    "transactionType": "Tipe Transaksi",
+    "@transactionType": {
+        "description": "Transaction Type"
+    },
+    "allTime": "Semua Waktu",
+    "@allTime": {
+        "description": "All time label"
+    },
+    "somethingWentWrong": "Terjadi kesalahan",
+    "@somethingWentWrong": {
+        "description": "Generic error message"
+    },
+    "walletEmpty": "Tidak ada dompet ditemukan",
+    "@walletEmpty": {
+        "description": "No wallets found"
+    },
+    "restore": "Pulihkan",
+    "@restore": {
+        "description": "Restore label"
+    },
+    "backup": "Cadangkan",
+    "@backup": {
+        "description": "Backup label"
+    },
+    "backupSuccess": "Pencadangan berhasil",
+    "@backupSuccess": {
+        "description": "Backup success message"
+    },
+    "restoreSuccess": "Pemulihan berhasil",
+    "@restoreSuccess": {
+        "description": "Restore success message"
+    },
+    "invalidFileFormat": "Format file tidak valid",
+    "@invalidFileFormat": {
+        "description": "Invalid file format error"
+    },
+    "data": "Data",
+    "@data": {
+        "description": "Data label"
+    },
+    "dataDescription": "Data disimpan secara lokal di perangkat Anda. Anda dapat mengekspornya ke file dan mengimpornya kembali jika perlu.",
+    "@dataDescription": {
+        "description": "Data description"
+    },
+    "backupRestoreDescription": "Lakukan pencadangan rutin atau pulihkan data lama Anda.",
+    "@backupRestoreDescription": {
+        "description": "Description for backup and restore section"
     }
 }

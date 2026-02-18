@@ -4,6 +4,7 @@ import 'package:safuku/ui/reports/bindings/transaction_reports_binding.dart';
 import 'package:safuku/ui/transactions/bindings/transaction_binding.dart';
 import 'package:safuku/ui/transactions/bindings/transaction_detail_binding.dart';
 import 'package:safuku/ui/wallet/bindings/wallet_binding.dart';
+import 'package:safuku/ui/settings/bindings/backup_binding.dart';
 
 class MainBinding extends Bindings {
   @override
@@ -15,5 +16,8 @@ class MainBinding extends Bindings {
     // Transactions Binding
     TransactionReportsBinding().dependencies();
     TransactionDetailBinding().dependencies();
+
+    // Settings Binding
+    SettingBinding().dependencies();
   }
 }

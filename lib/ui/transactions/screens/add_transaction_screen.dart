@@ -69,7 +69,10 @@ class AddTransactionScreen extends StatelessWidget {
             ),
           ),
           centerTitle: false,
-          title: Text("Add Transaction", style: context.textTheme.titleLarge),
+          title: Text(
+            context.localizations.addTransaction,
+            style: context.textTheme.titleLarge,
+          ),
           surfaceTintColor: context.colorScheme.surface,
           backgroundColor: context.colorScheme.surface,
         ),
@@ -109,7 +112,7 @@ class AddTransactionScreen extends StatelessWidget {
                     icon: Icons.title,
                     controller: _transactionController.nameController,
                     iconColor: AppColors.primary,
-                    labelText: "Title",
+                    labelText: context.localizations.title,
                   ),
                 ),
                 const SizedBox(height: SpacingScale.lg),
@@ -140,7 +143,7 @@ class AddTransactionScreen extends StatelessWidget {
                   ),
                   child: Obx(() {
                     return ButtonPrimary(
-                      text: "Add Transaction",
+                      text: context.localizations.addTransaction,
                       isLoading: _transactionController.isLoading.value,
                       onPressed: _transactionController.isLoading.value
                           ? null
@@ -178,7 +181,7 @@ class AddTransactionScreen extends StatelessWidget {
           filled: true,
           fillColor: context.colorExtension.bgCard,
           alignLabelWithHint: true,
-          labelText: "Notes (optional)",
+          labelText: context.localizations.notesOptional,
           labelStyle: context.textTheme.labelLarge,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(BorderRadiusScale.sm),

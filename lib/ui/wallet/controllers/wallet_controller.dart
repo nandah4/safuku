@@ -2,14 +2,19 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:safuku/ui/core/utils/app_event_bus.dart';
 import 'package:safuku/ui/core/utils/snackbar_helper.dart';
-import 'package:safuku/utils/logger.dart';
+import 'package:safuku/core/utils/logger.dart';
 
 import 'package:safuku/domain/entities/wallet.dart';
 import 'package:safuku/domain/repositories/wallet_repository.dart';
 
 class WalletController extends GetxController {
   final WalletRepository walletRepository;
-  WalletController({required this.walletRepository});
+  final AppEventBus _eventBus;
+
+  WalletController({
+    required this.walletRepository,
+    required AppEventBus eventBus,
+  }) : _eventBus = eventBus;
 
   final List<WalletEntity> wallets = <WalletEntity>[].obs;
   final Rx<int> totalSaldo = 0.obs;
@@ -20,14 +25,13 @@ class WalletController extends GetxController {
   void onInit() {
     super.onInit();
 
-    final eventBus = Get.find<AppEventBus>();
     _subscriptions = [
-      eventBus.on(AppEvent.walletChanged, (_) {
+      _eventBus.on(AppEvent.walletChanged, (_) {
         AppLogger.i('WalletController: walletChanged event received');
         getAllWallets();
         getTotalSaldo();
       }),
-      eventBus.on(AppEvent.transactionChanged, (_) {
+      _eventBus.on(AppEvent.transactionChanged, (_) {
         AppLogger.i('WalletController: transactionChanged event received');
         getTotalSaldo();
         getAllWallets();

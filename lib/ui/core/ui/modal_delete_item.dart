@@ -21,8 +21,8 @@ class ModalDeleteItem extends StatelessWidget {
     required this.title,
     this.description,
     this.iconColor,
-    this.iconSize = IconSizeScale.lg,
-    this.backgroundIconSize = 60,
+    this.iconSize = IconSizeScale.md,
+    this.backgroundIconSize = 55,
   });
 
   @override
@@ -30,22 +30,14 @@ class ModalDeleteItem extends StatelessWidget {
     return Container(
       width: .infinity,
       padding: .only(
-        top: PaddingScale.xl,
-        bottom: PaddingScale.xl * 2,
+        bottom: MediaQuery.of(context).viewPadding.bottom + 10,
         left: PaddingScale.md,
         right: PaddingScale.md,
       ),
-      decoration: BoxDecoration(
-        color: context.colorScheme.surface,
-        borderRadius: .only(
-          topLeft: Radius.circular(BorderRadiusScale.md),
-          topRight: Radius.circular(BorderRadiusScale.md),
-        ),
-      ),
       child: Column(
         mainAxisSize: .min,
+        crossAxisAlignment: .center,
         children: [
-          const SizedBox(height: SpacingScale.xl),
           Container(
             width: backgroundIconSize,
             height: backgroundIconSize,
@@ -63,30 +55,34 @@ class ModalDeleteItem extends StatelessWidget {
           ),
           const SizedBox(height: SpacingScale.lg),
           Text(
-            title,
+            "${context.localizations.deleteThis} $title",
             style: context.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.w500,
               height: 1,
             ),
           ),
           const SizedBox(height: SpacingScale.md),
-          Text(
-            description ?? "Are you sure you want to delete this wallet?",
-            style: context.textTheme.labelLarge?.copyWith(
-              fontWeight: FontWeight.w400,
-              height: 1,
+          SizedBox(
+            width: context.screenSize.width * 0.85,
+            child: Text(
+              description ?? context.localizations.deleteGeneralConfirm,
+              style: context.textTheme.labelLarge?.copyWith(
+                fontWeight: FontWeight.w400,
+                height: 1.5,
+              ),
+              textAlign: .center,
             ),
           ),
           const SizedBox(height: SpacingScale.lg),
           ButtonSecondary(
-            text: "Delete",
+            text: context.localizations.delete,
             backgroundColor: Colors.transparent,
             onPressed: onDelete,
             textColor: AppColors.error,
             isBorder: false,
           ),
           ButtonSecondary(
-            text: "Cancel",
+            text: context.localizations.cancel,
             backgroundColor: Colors.transparent,
             onPressed: () {
               Get.back();

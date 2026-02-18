@@ -41,6 +41,7 @@ class BorderRadiusScale {
 class ButtonHeightScale {
   const ButtonHeightScale._();
 
+  static const double tab = 50;
   static const double primary = 58;
   static const double secondary = 48;
 }

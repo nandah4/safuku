@@ -6,7 +6,7 @@ import 'package:safuku/ui/core/themes/extensions/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:safuku/ui/core/utils/formatter.dart';
+import 'package:safuku/ui/core/utils/formatter_interface.dart';
 import 'package:safuku/ui/core/utils/truncation_text.dart';
 
 class TransactionCardWidget extends StatelessWidget {
@@ -84,9 +84,8 @@ class TransactionCardWidget extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          Get.find<Formatter>().formatAmountWithCurrency(
-                            amount,
-                          ),
+                          Get.find<FormatterInterface>()
+                              .formatAmountWithCurrency(amount),
                           style: context.textTheme.labelMedium?.copyWith(
                             fontWeight: FontWeight.w600,
                             color: type == "income"

@@ -3,6 +3,8 @@ import 'package:safuku/data/datasource/local/transaction_local.dart';
 import 'package:safuku/data/datasource/local/wallet_local.dart';
 import 'package:safuku/data/repositories/transaction_repository_impl.dart';
 import 'package:safuku/domain/repositories/transaction_repository.dart';
+import 'package:safuku/ui/core/utils/app_event_bus.dart';
+import 'package:safuku/ui/core/utils/formatter_interface.dart';
 import '../../../config/database/database_helper.dart';
 import '../../../data/datasource/local/category_local.dart';
 import '../../../data/repositories/category_repository_impl.dart';
@@ -24,7 +26,14 @@ class TransactionBinding extends Bindings {
         transactionLocalDataSource: Get.find<TransactionLocalDataSource>(),
       ),
     );
-    Get.lazyPut<TransactionController>(() => TransactionController());
+    Get.lazyPut<TransactionController>(
+      () => TransactionController(
+        walletRepository: Get.find(),
+        transactionRepository: Get.find<TransactionRepository>(),
+        eventBus: Get.find<AppEventBus>(),
+        formatter: Get.find<FormatterInterface>(),
+      ),
+    );
 
     // Category dependencies
     Get.lazyPut<CategoryLocalDataSource>(
@@ -35,6 +44,10 @@ class TransactionBinding extends Bindings {
         categoryLocalDataSource: Get.find<CategoryLocalDataSource>(),
       ),
     );
-    Get.lazyPut<CategoryController>(() => CategoryController());
+    Get.lazyPut<CategoryController>(
+      () => CategoryController(
+        categoryRepository: Get.find<CategoryRepository>(),
+      ),
+    );
   }
 }

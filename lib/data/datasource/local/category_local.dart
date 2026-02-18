@@ -1,8 +1,8 @@
 import 'package:safuku/config/database/database_helper.dart';
 import 'package:sqflite/sqflite.dart';
-import '../../../core/utils/errors/exception.dart' as failure;
+import '../../../core/utils/errors/exception.dart' as exc;
 import '../../models/category.dart';
-import '../../../utils/logger.dart';
+import '../../../core/utils/logger.dart';
 
 class CategoryLocalDataSource {
   late final DatabaseHelper _databaseHelper;
@@ -23,9 +23,9 @@ class CategoryLocalDataSource {
       AppLogger.e("Category creation failed ${e.toString()}");
       switch (e) {
         case DatabaseException _:
-          throw failure.DatabaseException();
+          throw exc.DatabaseException();
         default:
-          throw failure.UnknownException();
+          throw exc.UnknownException();
       }
     }
   }
@@ -43,9 +43,9 @@ class CategoryLocalDataSource {
       AppLogger.e("Category loading failed ${e.toString()}");
       switch (e) {
         case DatabaseException _:
-          throw failure.DatabaseException();
+          throw exc.DatabaseException();
         default:
-          throw failure.UnknownException();
+          throw exc.UnknownException();
       }
     }
   }

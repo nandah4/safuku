@@ -5,10 +5,6 @@ class Failure {
   Failure({this.title, this.message});
 }
 
-// class MissMatchFailure extends Failure {
-//   MissMatchFailure({String? title, String? message}): super(title: title ?? "", message: message ??);
-// }
-
 class UnknownFailure extends Failure {
   UnknownFailure({String? title, String? message})
     : super(
@@ -25,14 +21,6 @@ class DatabaseFailure extends Failure {
       );
 }
 
-class EmptyFieldFailure extends Failure {
-  EmptyFieldFailure({String? title, String? message})
-    : super(
-        title: title ?? "Empty Field",
-        message: message ?? "Something went wrong",
-      );
-}
-
 class SaldoNotEnoughFailure extends Failure {
   SaldoNotEnoughFailure({String? title, String? message})
     : super(
@@ -41,18 +29,18 @@ class SaldoNotEnoughFailure extends Failure {
       );
 }
 
-class InvalidFormatFailure extends Failure {
-  InvalidFormatFailure({String? title, String? message})
+class FileSystemFailure extends Failure {
+  FileSystemFailure({String? title, String? message})
     : super(
-        title: title ?? "Invalid Format",
+        title: title ?? "File System Error",
         message: message ?? "Something went wrong",
       );
 }
 
-class ConstraintFailure extends Failure {
-  ConstraintFailure({String? title, String? message})
+class ShareDismissedException extends Failure {
+  ShareDismissedException({String? title, String? message})
     : super(
-        title: title ?? "Constraint Violation",
-        message: message ?? "Cannot proceed due to related data",
+        title: title ?? "Share Dismissed",
+        message: message ?? "Something went wrong",
       );
 }

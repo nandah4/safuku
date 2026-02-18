@@ -29,3 +29,11 @@ class ConstraintException implements Exception {
   @override
   String toString() => message ?? 'Constraint Violation';
 }
+
+class ShareDismissedException implements Exception {
+  final String? message;
+  ShareDismissedException([this.message]);
+
+  @override
+  String toString() => message ?? 'Share Dismissed';
+}

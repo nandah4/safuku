@@ -7,11 +7,13 @@ import 'package:safuku/ui/core/ui/transaction_card_widget.dart';
 import 'package:safuku/ui/home/controllers/home_controller.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:safuku/ui/core/controllers/shell_controller.dart';
 
 class RecentTransactionList extends StatelessWidget {
   RecentTransactionList({super.key});
 
   final HomeController _homeController = Get.find<HomeController>();
+  final ShellController _shellController = Get.find<ShellController>();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class RecentTransactionList extends StatelessWidget {
               ),
               const Spacer(),
               TextButton(
-                onPressed: () {},
+                onPressed: () => _shellController.changeIndex(2),
                 child: Text(
                   context.localizations.seeAll,
                   style: context.textTheme.titleSmall,
@@ -40,16 +42,27 @@ class RecentTransactionList extends StatelessWidget {
           ),
           const SizedBox(height: SpacingScale.sm),
           Obx(() {
-            if (_homeController.isLoading.value) {
-              return const Center(child: CircularProgressIndicator());
-            }
-
             if (_homeController.recentTransaction.value.isEmpty) {
-              return Center(
-                child: Text(
-                  "No transactions yet",
-                  style: context.textTheme.labelMedium?.copyWith(
-                    color: context.colorExtension.textLabel,
+              return SizedBox(
+                height: 230,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        FontAwesomeIcons.clockRotateLeft,
+                        size: IconSizeScale.xl,
+                        color: context.colorExtension.textLabel,
+                      ),
+                      const SizedBox(height: SpacingScale.lg),
+                      Text(
+                        context.localizations.noTransactionsYet,
+                        style: context.textTheme.labelLarge?.copyWith(
+                          color: context.colorExtension.textLabel,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               );

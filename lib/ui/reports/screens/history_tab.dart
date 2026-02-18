@@ -83,7 +83,10 @@ class HistoryTab extends StatelessWidget {
           Row(
             mainAxisAlignment: .spaceBetween,
             children: [
-              Text("Transaction History", style: context.textTheme.titleSmall),
+              Text(
+                context.localizations.transactionHistory,
+                style: context.textTheme.titleSmall,
+              ),
               Obx(() {
                 final isFilterActive = _controller.selectedDate.value != null;
 
@@ -132,7 +135,29 @@ class HistoryTab extends StatelessWidget {
             final keys = groupedItems.keys.toList();
 
             if (keys.isEmpty) {
-              return Text("Empty");
+              return SizedBox(
+                height: 230,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        FontAwesomeIcons.clockRotateLeft,
+                        size: IconSizeScale.xl,
+                        color: context.colorExtension.textLabel,
+                      ),
+                      const SizedBox(height: SpacingScale.lg),
+                      Text(
+                        context.localizations.emptyHistory,
+                        style: context.textTheme.labelLarge?.copyWith(
+                          color: context.colorExtension.textLabel,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
             }
 
             return ListView.separated(
