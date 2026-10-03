@@ -50,7 +50,7 @@ class RecentTransactionList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
-                        FontAwesomeIcons.clockRotateLeft,
+                        FontAwesomeIcons.clockRotateLeft.data,
                         size: IconSizeScale.xl,
                         color: context.colorExtension.textLabel,
                       ),
@@ -82,7 +82,7 @@ class RecentTransactionList extends StatelessWidget {
                   onTap: () =>
                       Get.toNamed('/transaction-detail/${transaction.id}'),
                   child: TransactionCardWidget(
-                    icon: FontAwesomeIcons.moneyBill,
+                    icon: FontAwesomeIcons.moneyBill.data,
                     type: transaction.type,
                     title: transaction.title,
                     category: transaction.categoryName ?? "-",

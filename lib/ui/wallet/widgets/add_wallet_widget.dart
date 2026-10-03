@@ -41,7 +41,10 @@ class AddWalletWidget extends StatelessWidget {
           IconButton(
             padding: .zero,
             onPressed: () => Get.back(),
-            icon: Icon(FontAwesomeIcons.chevronLeft, size: IconSizeScale.sm),
+            icon: Icon(
+              FontAwesomeIcons.chevronLeft.data,
+              size: IconSizeScale.sm,
+            ),
           ),
           const SizedBox(width: SpacingScale.sm),
           Text(
@@ -147,7 +150,7 @@ class AddWalletWidget extends StatelessWidget {
         ),
         prefixIcon: Obx(
           () => Icon(
-            FontAwesomeIcons.wallet,
+            FontAwesomeIcons.wallet.data,
             size: IconSizeScale.md,
             color: controllers.currentColor.value,
           ),

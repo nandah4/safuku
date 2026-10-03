@@ -29,8 +29,8 @@ class TransactionDetailScreen extends StatelessWidget {
         ? AppColors.errorBackground
         : AppColors.successBackground;
     final IconData typeIcon = type == "expense"
-        ? FontAwesomeIcons.arrowTrendDown
-        : FontAwesomeIcons.arrowTrendUp;
+        ? FontAwesomeIcons.arrowTrendDown.data
+        : FontAwesomeIcons.arrowTrendUp.data;
     final String typeText = type == "expense"
         ? context.localizations.labelExpense
         : context.localizations.labelIncome;
@@ -78,8 +78,8 @@ class TransactionDetailScreen extends StatelessWidget {
               visualDensity: .compact,
               highlightColor: Colors.transparent,
               onPressed: () => Get.back(),
-              icon: const Icon(
-                FontAwesomeIcons.chevronLeft,
+              icon: Icon(
+                FontAwesomeIcons.chevronLeft.data,
                 size: IconSizeScale.md,
               ),
               color: context.colorExtension.textLabel,
@@ -100,8 +100,8 @@ class TransactionDetailScreen extends StatelessWidget {
                     },
                   );
                 },
-                icon: const Icon(
-                  FontAwesomeIcons.penToSquare,
+                icon: Icon(
+                  FontAwesomeIcons.penToSquare.data,
                   size: IconSizeScale.md,
                 ),
                 color: context.colorExtension.textLabel,
@@ -115,7 +115,7 @@ class TransactionDetailScreen extends StatelessWidget {
                     backgroundColor: context.colorScheme.surface,
                     builder: (context) {
                       return ModalDeleteItem(
-                        icon: FontAwesomeIcons.trash,
+                        icon: FontAwesomeIcons.trash.data,
                         iconColor: AppColors.error,
                         title:
                             "${_detailController.transactionData.value?.title}",
@@ -131,8 +131,8 @@ class TransactionDetailScreen extends StatelessWidget {
                   );
                 },
                 highlightColor: Colors.transparent,
-                icon: const Icon(
-                  FontAwesomeIcons.trash,
+                icon: Icon(
+                  FontAwesomeIcons.trash.data,
                   size: IconSizeScale.md,
                 ),
                 color: AppColors.error,
@@ -209,7 +209,7 @@ class TransactionDetailScreen extends StatelessWidget {
                               .value
                               ?.categoryName ??
                           '',
-                      icon: FontAwesomeIcons.tag,
+                      icon: FontAwesomeIcons.tag.data,
                       iconColor: AppColors.primary,
                     ),
                   ),
@@ -226,7 +226,7 @@ class TransactionDetailScreen extends StatelessWidget {
                       label: context.localizations.title,
                       value:
                           _detailController.transactionData.value?.title ?? '',
-                      icon: FontAwesomeIcons.cartShopping,
+                      icon: FontAwesomeIcons.cartShopping.data,
                       iconColor: AppColors.primary,
                     ),
                   ),
@@ -244,7 +244,7 @@ class TransactionDetailScreen extends StatelessWidget {
                       value:
                           _detailController.transactionData.value?.walletName ??
                           '',
-                      icon: FontAwesomeIcons.wallet,
+                      icon: FontAwesomeIcons.wallet.data,
                       iconColor:
                           _detailController.transactionData.value?.walletColor
                               ?.toColor() ??
@@ -270,7 +270,7 @@ class TransactionDetailScreen extends StatelessWidget {
                             ) ??
                             DateTime.now(),
                       ),
-                      icon: FontAwesomeIcons.calendar,
+                      icon: FontAwesomeIcons.calendar.data,
                       iconColor: AppColors.primary,
                     ),
                   ),
@@ -317,7 +317,7 @@ class TransactionDetailScreen extends StatelessWidget {
                                   ),
                                 ),
                                 child: Icon(
-                                  FontAwesomeIcons.noteSticky,
+                                  FontAwesomeIcons.noteSticky.data,
                                   size: IconSizeScale.md,
                                   color: AppColors.primary,
                                 ),

@@ -64,7 +64,7 @@ class WalletSelector extends StatelessWidget {
                   child: Row(
                     children: [
                       Icon(
-                        FontAwesomeIcons.wallet,
+                        FontAwesomeIcons.wallet.data,
                         size: IconSizeScale.sm,
                         color: wallet.color?.toColor() ?? AppColors.primary,
                       ),

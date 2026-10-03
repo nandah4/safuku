@@ -26,8 +26,8 @@ class StatisticTab extends StatelessWidget {
         ),
         headerSettings: PickerHeaderSettings(
           headerBackgroundColor: AppColors.primary,
-          nextIcon: FontAwesomeIcons.arrowRight,
-          previousIcon: FontAwesomeIcons.arrowLeft,
+          nextIcon: FontAwesomeIcons.arrowRight.data,
+          previousIcon: FontAwesomeIcons.arrowLeft.data,
           headerIconsSize: IconSizeScale.sm,
           headerIconsColor: AppColors.text,
           headerCurrentPageTextStyle: context.textTheme.headlineSmall?.copyWith(
@@ -99,7 +99,7 @@ class StatisticTab extends StatelessWidget {
                   child: Row(
                     children: [
                       Icon(
-                        FontAwesomeIcons.solidCalendar,
+                        FontAwesomeIcons.solidCalendar.data,
                         size: IconSizeScale.md,
                         color: AppColors.primary,
                       ),

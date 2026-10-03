@@ -62,7 +62,7 @@ class WalletScreen extends StatelessWidget {
         IconButton(
           color: context.colorExtension.textPrimary,
           onPressed: () => _showWalletModal(context),
-          icon: Icon(FontAwesomeIcons.plus, size: IconSizeScale.md),
+          icon: Icon(FontAwesomeIcons.plus.data, size: IconSizeScale.md),
         ),
         const SizedBox(width: SpacingScale.xs),
       ],
@@ -127,7 +127,7 @@ class WalletScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
-                      FontAwesomeIcons.wallet,
+                      FontAwesomeIcons.wallet.data,
                       size: IconSizeScale.xl,
                       color: context.colorExtension.textLabel,
                     ),
@@ -162,7 +162,7 @@ class WalletScreen extends StatelessWidget {
                       builder: (context) {
                         return ModalDeleteItem(
                           iconColor: AppColors.error,
-                          icon: FontAwesomeIcons.wallet,
+                          icon: FontAwesomeIcons.wallet.data,
                           title: wallet.name,
                           description:
                               context.localizations.deleteWalletConfirm,
@@ -201,7 +201,7 @@ class WalletScreen extends StatelessWidget {
                             borderRadius: .circular(BorderRadiusScale.sm),
                           ),
                           child: Icon(
-                            FontAwesomeIcons.wallet,
+                            FontAwesomeIcons.wallet.data,
                             size: IconSizeScale.sm,
                             color: wallet.color?.toColor(),
                           ),

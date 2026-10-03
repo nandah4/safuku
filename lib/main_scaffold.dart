@@ -83,7 +83,7 @@ class MainScaffold extends StatelessWidget {
                             child: Row(
                               children: [
                                 Icon(
-                                  FontAwesomeIcons.moneyBills,
+                                  FontAwesomeIcons.moneyBills.data,
                                   size: IconSizeScale.lg,
                                   color: AppColors.primary,
                                 ),
@@ -128,7 +128,7 @@ class MainScaffold extends StatelessWidget {
             },
             borderRadius: BorderRadius.circular(BorderRadiusScale.lg),
             child: Icon(
-              FontAwesomeIcons.plus,
+              FontAwesomeIcons.plus.data,
               color: context.colorScheme.onPrimary,
               size: IconSizeScale.md,
             ),
@@ -137,7 +137,7 @@ class MainScaffold extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        color: context.colorScheme.surface,
+        padding: .symmetric(horizontal: 0), color: context.colorScheme.surface,
         notchMargin: 8.0,
         shape: const CircularNotchedRectangle(),
         child: Obx(
@@ -148,8 +148,8 @@ class MainScaffold extends StatelessWidget {
                 currentIndex: _shellController.currentIndex,
                 navIndex: 0,
                 label: context.localizations.bottomHome,
-                iconInactive: FontAwesomeIcons.house,
-                iconActive: FontAwesomeIcons.solidHouse,
+                iconInactive: FontAwesomeIcons.house.data,
+                iconActive: FontAwesomeIcons.solidHouse.data,
                 onTap: () {
                   _shellController.changeIndex(0);
                 },
@@ -158,7 +158,7 @@ class MainScaffold extends StatelessWidget {
                 currentIndex: _shellController.currentIndex,
                 navIndex: 1,
                 label: context.localizations.bottomWallet,
-                iconInactive: FontAwesomeIcons.wallet,
+                iconInactive: FontAwesomeIcons.wallet.data,
                 onTap: () => _shellController.changeIndex(1),
               ),
               const SizedBox(width: 40),
@@ -166,15 +166,15 @@ class MainScaffold extends StatelessWidget {
                 currentIndex: _shellController.currentIndex,
                 navIndex: 2,
                 label: context.localizations.bottomReports,
-                iconInactive: FontAwesomeIcons.clipboard,
-                iconActive: FontAwesomeIcons.solidClipboard,
+                iconInactive: FontAwesomeIcons.clipboard.data,
+                iconActive: FontAwesomeIcons.solidClipboard.data,
                 onTap: () => _shellController.changeIndex(2),
               ),
               NavItem(
                 currentIndex: _shellController.currentIndex,
                 navIndex: 3,
                 label: context.localizations.bottomSettings,
-                iconInactive: FontAwesomeIcons.gear,
+                iconInactive: FontAwesomeIcons.gear.data,
                 onTap: () => _shellController.changeIndex(3),
               ),
             ],

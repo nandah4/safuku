@@ -26,8 +26,8 @@ class HistoryTab extends StatelessWidget {
         ),
         headerSettings: PickerHeaderSettings(
           headerBackgroundColor: AppColors.primary,
-          nextIcon: FontAwesomeIcons.arrowRight,
-          previousIcon: FontAwesomeIcons.arrowLeft,
+          nextIcon: FontAwesomeIcons.arrowRight.data,
+          previousIcon: FontAwesomeIcons.arrowLeft.data,
           headerIconsSize: IconSizeScale.sm,
           headerIconsColor: AppColors.text,
           headerCurrentPageTextStyle: context.textTheme.headlineSmall?.copyWith(
@@ -97,7 +97,7 @@ class HistoryTab extends StatelessWidget {
                       child: Row(
                         children: [
                           Icon(
-                            FontAwesomeIcons.solidCalendar,
+                            FontAwesomeIcons.solidCalendar.data,
                             size: IconSizeScale.md,
                             color: AppColors.primary,
                           ),
@@ -142,7 +142,7 @@ class HistoryTab extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
-                        FontAwesomeIcons.clockRotateLeft,
+                        FontAwesomeIcons.clockRotateLeft.data,
                         size: IconSizeScale.xl,
                         color: context.colorExtension.textLabel,
                       ),

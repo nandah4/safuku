@@ -62,7 +62,7 @@ class TransactionCardWidget extends StatelessWidget {
                 ),
                 child: Center(
                   child: Icon(
-                    FontAwesomeIcons.moneyBill,
+                    FontAwesomeIcons.moneyBill.data,
                     size: IconSizeScale.md,
                     color: _iconColor,
                   ),
@@ -116,7 +116,7 @@ class TransactionCardWidget extends StatelessWidget {
               Row(
                 children: [
                   Icon(
-                    FontAwesomeIcons.wallet,
+                    FontAwesomeIcons.wallet.data,
                     size: IconSizeScale.sm,
                     color: context.colorExtension.textLabel,
                   ),
@@ -133,7 +133,7 @@ class TransactionCardWidget extends StatelessWidget {
               Row(
                 children: [
                   Icon(
-                    FontAwesomeIcons.solidCalendar,
+                    FontAwesomeIcons.solidCalendar.data,
                     size: IconSizeScale.sm,
                     color: context.colorExtension.textLabel,
                   ),

@@ -63,8 +63,8 @@ class AddTransactionScreen extends StatelessWidget {
         child: AppBar(
           leading: IconButton(
             onPressed: () => Get.back(),
-            icon: const Icon(
-              FontAwesomeIcons.chevronLeft,
+            icon: Icon(
+              FontAwesomeIcons.chevronLeft.data,
               size: IconSizeScale.sm,
             ),
           ),

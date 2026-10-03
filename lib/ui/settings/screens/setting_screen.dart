@@ -75,7 +75,7 @@ class SettingScreen extends StatelessWidget {
                                 Get.back();
                                 backupController.backupDatabase();
                               },
-                              icon: FontAwesomeIcons.database,
+                              icon: FontAwesomeIcons.database.data,
                               label: context.localizations.backup,
                             ),
                             const SizedBox(height: SpacingScale.sm),
@@ -84,7 +84,7 @@ class SettingScreen extends StatelessWidget {
                                 Get.back();
                                 backupController.restoreDatabase();
                               },
-                              icon: FontAwesomeIcons.clockRotateLeft,
+                              icon: FontAwesomeIcons.clockRotateLeft.data,
                               label: context.localizations.restore,
                             ),
                           ],
@@ -94,8 +94,8 @@ class SettingScreen extends StatelessWidget {
                   );
                 },
                 icon: backupController.isLoading.value
-                    ? FontAwesomeIcons.spinner
-                    : FontAwesomeIcons.database,
+                    ? FontAwesomeIcons.spinner.data
+                    : FontAwesomeIcons.database.data,
                 label: context.localizations.backupRestore,
               ),
             ),
@@ -149,7 +149,7 @@ class SettingScreen extends StatelessWidget {
                 ];
               },
               child: ActionTile(
-                icon: FontAwesomeIcons.language,
+                icon: FontAwesomeIcons.language.data,
                 label: context.localizations.language,
                 trailing: Text(
                   personalizationController.locale.value.toString(),
@@ -164,7 +164,7 @@ class SettingScreen extends StatelessWidget {
                   personalizationController.setCurrency(currency.symbol);
                 });
               },
-              icon: FontAwesomeIcons.bitcoinSign,
+              icon: FontAwesomeIcons.bitcoinSign.data,
               label: context.localizations.currency,
               trailing: Obx(
                 () => Text(
@@ -182,7 +182,7 @@ class SettingScreen extends StatelessWidget {
                   backgroundColor: context.colorScheme.surface,
                   builder: (context) {
                     return ModalDeleteItem(
-                      icon: FontAwesomeIcons.arrowRightFromBracket,
+                      icon: FontAwesomeIcons.arrowRightFromBracket.data,
                       iconColor: AppColors.error,
                       title: context.localizations.data,
                       description: context.localizations.dataDescription,
@@ -193,7 +193,7 @@ class SettingScreen extends StatelessWidget {
                   },
                 );
               },
-              icon: FontAwesomeIcons.trash,
+              icon: FontAwesomeIcons.trash.data,
               iconColor: AppColors.error,
               label: context.localizations.removeData,
             ),

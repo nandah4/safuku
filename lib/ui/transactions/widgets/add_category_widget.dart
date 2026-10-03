@@ -46,7 +46,7 @@ class AddCategoryWidget extends StatelessWidget {
                 IconButton(
                   onPressed: () => Get.back(),
                   icon: Icon(
-                    FontAwesomeIcons.chevronLeft,
+                    FontAwesomeIcons.chevronLeft.data,
                     size: IconSizeScale.sm,
                   ),
                 ),
@@ -91,7 +91,7 @@ class AddCategoryWidget extends StatelessWidget {
 
                         counterStyle: context.textTheme.labelMedium,
                         prefixIcon: Icon(
-                          FontAwesomeIcons.tag,
+                          FontAwesomeIcons.tag.data,
                           size: IconSizeScale.md,
                           color: context.colorScheme.primary,
                         ),

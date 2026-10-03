@@ -53,7 +53,7 @@ dependencies:
 
   # UI
   currency_picker: ^2.0.21
-  font_awesome_flutter: ^10.12.0
+  font_awesome_flutter: ^11.0.0
   month_picker_dialog: ^6.7.1
   flutter_colorpicker: ^1.1.0
   calendar_date_picker2: ^2.0.1
